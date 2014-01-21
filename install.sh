@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 0.3 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 0.4 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
