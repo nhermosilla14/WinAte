@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 0.4 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 0.4.1 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -44,7 +44,7 @@ function respaldar(){
 }
 echo "==================================================================="
 echo "=                                                                 ="
-echo "=  WinAte 0.4 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
+echo "=  WinAte 0.4.1 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
