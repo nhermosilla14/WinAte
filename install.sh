@@ -44,7 +44,7 @@ function respaldar(){
 }
 echo "==================================================================="
 echo "=                                                                 ="
-echo "=  WinAte 0.4.1 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
+echo "= WinAte 0.4.2 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -89,7 +89,7 @@ comprobar ~/.config/lxsession/LXDE
 cp -r ./Win2-7 ~/.icons/Win2-7
 cp -r ./Win2-7-fixed ~/.themes/Win2-7-fixed
 cp -r ./aero-drop ~/.icons/aero-drop
-cp -r ./WinAte-ob ~/.themes/WinAte-ob
+cp -r ./WinAte8-ob ~/.themes/WinAte8-ob
 cp fonts/* ~/.fonts/
 cp backgrounds/* ~/.backgrounds/
 #Respaldo y configuración panel
