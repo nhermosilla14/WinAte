@@ -5,8 +5,8 @@
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
 #  Contiene porciones del Win2-7 pack, disponible libremente a través de gnome-look.org
-#  además de trozos de código de los temas Imagine 7 e Imagine 8 para Openbox, disponibles
-#  en SourceForge
+#  Contiene el botón de inicio de Windows 8 by dassebi (dassebi.deviantart.com)
+# 
 # 
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
