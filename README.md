@@ -1,5 +1,5 @@
 
-My goal is to provide an easy way to migrate from Windows 7 to GNU/Linux, without having a high end pc. Everything is done using the less resource-intensive software available, always trying to keep as much functionality as possible.
+My goal is to provide an easy way to migrate from Windows 7/8 to GNU/Linux, without having a high end pc. Everything is done using the less resource-intensive software available, always trying to keep as much functionality as possible.
 
 
 
