@@ -6,7 +6,7 @@
 #  
 #  Contiene porciones del Win2-7 pack, disponible libremente a través de gnome-look.org
 #  Contiene el botón de inicio de Windows 8 by dassebi (dassebi.deviantart.com)
-# 
+#  Contiene los fondos de pantalla de Windows 8 by misaki2009 (misaki2009.deviantart.com)
 # 
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ cp conf/panel ~/.config/lxpanel/LXDE/panels/panel
 respaldar ~/.config/pcmanfm/LXDE/pcmanfm.conf 22
 comprobar ~/.config/pcmanfm/
 comprobar ~/.config/pcmanfm/LXDE
-pcmanfm -w $HOME/.backgrounds/Win2-7Pixmap.jpg --wallpaper-mode=stretch
+pcmanfm -w $HOME/.backgrounds/img0.jpg --wallpaper-mode=stretch
 #Configuración QT4
 rm ~/.config/Trolltech.conf
 cp conf/Trolltech.conf ~/.config/Trolltech.conf
