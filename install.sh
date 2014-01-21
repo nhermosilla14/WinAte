@@ -44,7 +44,7 @@ function respaldar(){
 }
 echo "==================================================================="
 echo "=                                                                 ="
-echo "=  WinAte 0.3 - Windows 7 (r) Transformation Pack for Debian/LXDE ="
+echo "=  WinAte 0.4 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
