@@ -18,7 +18,7 @@ menu.title.text.color: #000000
 menu.title.text.justify: center
 osd.border.color: #5991CC
 padding.height: 2
-padding.width: 16
+padding.width: 14
 window.active.border.color: #5C93CF
 window.active.button.disabled.bg: ParentRelative Flat
 window.active.button.disabled.image.color: #E9E9E9
@@ -52,6 +52,7 @@ window.active.title.bg: Solid Flat Border
 window.active.title.bg.color: #6BADF7
 window.active.title.bg.border.color: #6BADF7
 window.active.title.separator.color: #6BADF7
+window.client.padding.height: 3
 window.client.padding.width: 5
 window.handle.width: 0
 window.inactive.border.color: #DADADA
