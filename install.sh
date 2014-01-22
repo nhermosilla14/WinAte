@@ -109,11 +109,12 @@ fi
 distro=$(cat /etc/*-release | grep '^NAME=')
 distro=${distro:6}
 distro="$(cut -d ' ' -f 1 <<< "$distro")"
+distro="$(echo $distro | sed -e 's/\"$//')"
 argumentos=$1"_"
 if [ "$argumentos" == "--force_" ]
     then
-    respuesta="S"
-    echo "mensaje11 ( Debian | Ubuntu )"
+    respuesta=$si
+    echo "$mensaje11 ( Debian | Ubuntu )"
     read distro
 else
     echo "$mensaje8 $distro$mensaje9"
