@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 0.5 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
+echo "= WinAte 0.5.2 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -117,10 +117,12 @@ then
 ob_tema="WinAte7-ob"
 fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
 panel_tema="conf/panel7"
+rc="conf/lxde-rc7.xml"
 else
 ob_tema="WinAte8-ob"
 fondo_tema="$HOME/.backgrounds/img0.jpg"
 panel_tema="conf/panel8"
+rc="conf/lxde-rc8.xml"
 fi
 comprobar backup
 comprobar ~/.fonts
@@ -177,7 +179,7 @@ echo "@pcmanfm --desktop --profile LXDE" >> ~/.config/lxsession/LXDE/autostart
 #Respaldo y configuración Openbox
 respaldar ~/.config/openbox/lxde-rc.xml 17
 comprobar ~/.config/openbox/
-cp conf/lxde-rc.xml ~/.config/openbox/lxde-rc.xml
+cp "$rc" ~/.config/openbox/lxde-rc.xml
 echo "killall openbox" >> uninstall.sh
 echo "rm ~/.config/openbox/lxde-rc.xml" >> uninstall.sh
 echo "cp backup/lxde-rc.xml ~/.config/openbox/lxde-rc.xml" >> uninstall.sh
@@ -189,9 +191,9 @@ echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
 echo "rm -r ~/.themes/$ob-tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
-echo "echo \"Cierre sesión y reábrala. | Logout and login.\""
-echo "lxsession-logout"
-chmod +x uninstall.sh
+echo "echo \"Cierre sesión y reábrala. | Logout and login.\"" >> uninstall.sh
+echo "lxsession-logout" >> uninstall.sh
+chmod +x uninstall.sh >> uninstall.sh
 clear
 echo $mensaje4
 echo $mensaje5
