@@ -188,7 +188,7 @@ echo "cp backup/autostart ~/.config/lxsession/autostart" >> uninstall.sh
 echo "rm -r backup" >> uninstall.sh
 echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
 echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
-echo "rm -r ~/.themes/$ob-tema" >> uninstall.sh
+echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
 echo "echo \"Cierre sesión y reábrala. | Logout and login.\"" >> uninstall.sh
