@@ -110,8 +110,9 @@ function respaldar(){
 
 clear
 echo $mensaje1
-read respuesta
-if [ $respuesta == "7" ]
+read respuesta1
+respuesta=$respuesta1"_"
+if [ $respuesta == "7_" ]
 then
 ob_tema="WinAte7-ob"
 fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
@@ -147,8 +148,9 @@ echo "rm ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
 echo "cp backup/panel ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
 #Respaldo y configuración PCManFM
 echo $mensaje2
-read respuesta
-if [ $respuesta != "n" ] && [ $respuesta != "N" ]
+read respuesta1
+respuesta=$respuesta1"_"
+if [ $respuesta != "n_" ] && [ $respuesta != "N_" ]
 then
 respaldar ~/.config/pcmanfm/LXDE/pcmanfm.conf 22
 comprobar ~/.config/pcmanfm/
@@ -156,8 +158,8 @@ comprobar ~/.config/pcmanfm/LXDE
 pcmanfm -w $fondo_tema --wallpaper-mode=stretch
 echo "#Recuperación PCManFM" >> uninstall.sh
 echo "fondo=\$(cat backup/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
-echo "ubicacion=\${fondo:10}" >> uninstall.sh
-echo "pcmanfm -w $\ubicacion --wallpaper-mode=stretch" >> uninstall.sh
+echo "ubicacion=\"\${fondo:10}\"" >> uninstall.sh
+echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch" >> uninstall.sh
 fi
 #Configuración QT4
 rm ~/.config/Trolltech.conf
