@@ -24,27 +24,10 @@
 #  MA 02110-1301, USA.
 #  
 # 
-function comprobar(){
-        if [ -e $1 ]
-        then
-        echo "Carpeta $1 encontrada | Directory $1 found"
-        else
-	echo "Creado el directorio $1 | Directory $1 created"
-        mkdir $1
-        fi
-}
-function respaldar(){
-        if [ -e $1 ]
-        then
-	ubicacion=$1
-	let c=${#HOME}+$2
-	mv $1 ./backup/${ubicacion:$c}
-        echo "Fichero $1 respaldado // File $1 backed-up"
-        fi
-}
+
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 0.4.2 - Windows 8 (r) Transformation Pack for Debian/LXDE ="
+echo "= WinAte 0.4.2 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -79,6 +62,65 @@ echo "==========================================================================
 echo ""
 echo "Presione enter para continuar... //Press enter to continue..."
 read
+clear
+echo "Elija idioma para instalar: | Choose language to install: "
+echo ""
+echo "1)Español"
+echo "2)English"
+echo ""
+echo "1/2?"
+read respuesta
+if [ $respuesta == "2" ]
+then
+    mensaje1="What theme do you want to setup?(default 8) 7/8"
+    mensaje2="Do you want to setup the wallpaper too? Y/n"
+    mensaje3="File backed-up"
+    mensaje4="Installation finished. Logout and login again to let changes be applied."
+    mensaje5="Press enter to open logout dialog."
+    mensaje6="Directory created"
+    mensaje7="Directory found"
+else
+    mensaje1="Qué tema desea configurar?(opción por defecto: 8) 7/8"
+    mensaje2="Desea cambiar el fondo de pantalla también? S/n"
+    mensaje3="Archivo respaldado"
+    mensaje4="Instalación finalizada. Cierre y abra sesión para aplicar los cambios."
+    mensaje5="Presione enter para abrir el diálogo de cierre."
+    mensaje6="Directorio creado"
+    mensaje7="Directorio encontrado"
+fi
+
+function comprobar(){
+        if [ -e $1 ]
+        then
+        echo "$1 : $mensaje7"
+        else
+	echo "$1 : $mensaje6"
+        mkdir $1
+        fi
+}
+function respaldar(){
+        if [ -e $1 ]
+        then
+	ubicacion=$1
+	let c=${#HOME}+$2
+	mv $1 ./backup/${ubicacion:$c}
+        echo "$1 : $mensaje3"
+        fi
+}
+
+clear
+echo $mensaje1
+read respuesta
+if [ $respuesta == "7" ]
+then
+ob_tema="WinAte7-ob"
+fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
+panel_tema="conf/panel7"
+else
+ob_tema="WinAte8-ob"
+fondo_tema="$HOME/.backgrounds/img0.jpg"
+panel_tema="conf/panel8"
+fi
 comprobar backup
 comprobar ~/.fonts
 comprobar ~/.themes
@@ -86,10 +128,10 @@ comprobar ~/.icons
 comprobar ~/.backgrounds
 comprobar ~/.config/lxsession
 comprobar ~/.config/lxsession/LXDE
-cp -r ./Win2-7 ~/.icons/Win2-7
-cp -r ./Win2-7-fixed ~/.themes/Win2-7-fixed
-cp -r ./aero-drop ~/.icons/aero-drop
-cp -r ./WinAte8-ob ~/.themes/WinAte8-ob
+cp -r ./Win2-7 ~/.icons/
+cp -r ./Win2-7-fixed ~/.themes/
+cp -r ./aero-drop ~/.icons/
+cp -r $ob_tema ~/.themes/
 cp fonts/* ~/.fonts/
 cp backgrounds/* ~/.backgrounds/
 #Respaldo y configuración panel
@@ -97,12 +139,26 @@ respaldar ~/.config/lxpanel/LXDE/panels/panel 29
 comprobar ~/.config/lxpanel/
 comprobar ~/.config/lxpanel/LXDE
 comprobar ~/.config/lxpanel/LXDE/panels
-cp conf/panel ~/.config/lxpanel/LXDE/panels/panel
+cp $panel_tema ~/.config/lxpanel/LXDE/panels/panel
+echo "#!/bin/bash" > uninstall.sh
+echo "#Recuperación panel" >> uninstall.sh
+echo "killall lxpanel" >> uninstall.sh
+echo "rm ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
+echo "cp backup/panel ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
 #Respaldo y configuración PCManFM
+echo $mensaje2
+read respuesta
+if [ $respuesta != "n" ] && [ $respuesta != "N" ]
+then
 respaldar ~/.config/pcmanfm/LXDE/pcmanfm.conf 22
 comprobar ~/.config/pcmanfm/
 comprobar ~/.config/pcmanfm/LXDE
-pcmanfm -w $HOME/.backgrounds/img0.jpg --wallpaper-mode=stretch
+pcmanfm -w $fondo_tema --wallpaper-mode=stretch
+echo "#Recuperación PCManFM" >> uninstall.sh
+echo "fondo=\$(cat backup/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
+echo "ubicacion=\${fondo:10}" >> uninstall.sh
+echo "pcmanfm -w $\ubicacion --wallpaper-mode=stretch" >> uninstall.sh
+fi
 #Configuración QT4
 rm ~/.config/Trolltech.conf
 cp conf/Trolltech.conf ~/.config/Trolltech.conf
@@ -111,6 +167,8 @@ respaldar ~/.config/lxsession/LXDE/desktop.conf 37
 comprobar ~/.config/lxsession
 comprobar ~/.config/lxsession/LXDE
 cp conf/desktop.conf ~/.config/lxsession/LXDE/desktop.conf
+echo "rm ~/.config/lxsession/LXDE/desktop.conf" >> uninstall.sh
+echo "cp backup/desktop.conf ~/.config/lxsession/LXDE/desktop.conf" >> uninstall.sh
 respaldar ~/.config/lxsession/LXDE/autostart 24
 rm ~/.config/lxsession/LXDE/autostart
 echo "@pcmanfm --desktop --profile LXDE" >> ~/.config/lxsession/LXDE/autostart
@@ -118,32 +176,19 @@ echo "@pcmanfm --desktop --profile LXDE" >> ~/.config/lxsession/LXDE/autostart
 respaldar ~/.config/openbox/lxde-rc.xml 17
 comprobar ~/.config/openbox/
 cp conf/lxde-rc.xml ~/.config/openbox/lxde-rc.xml
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Instalación finalizada. Cierre y abra sesión para aplicar los cambios."
-echo "Installation finished. Logout and login again to let changes be applied."
-echo "Presione enter para abrir el diálogo de cierre. | Press enter to open logout dialog."
+echo "killall openbox" >> uninstall.sh
+echo "rm ~/.config/openbox/lxde-rc.xml" >> uninstall.sh
+echo "cp backup/lxde-rc.xml ~/.config/openbox/lxde-rc.xml" >> uninstall.sh
+echo "rm ~/.config/lxsession/autostart" >> uninstall.sh
+echo "cp backup/autostart ~/.config/lxsession/autostart" >> uninstall.sh
+echo "rm -r backup" >> uninstall.sh
+echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
+echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
+echo "rm -r ~/.themes/WinAte8-ob" >> uninstall.sh
+echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
+echo "rm ~/.backgrounds/img*" >> uninstall.sh
+clear
+echo $mensaje4
+echo $mensaje5
 read
 lxsession-logout

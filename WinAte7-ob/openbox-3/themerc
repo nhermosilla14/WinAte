@@ -1,0 +1,111 @@
+#IMAGINE OPENBOX THEME STRUCTURE
+#by ishom jauhari (ishomj@gmail.com)
+#Theme name - Imagine Eight
+#
+#Goal of IMAGINE THEMING is to produce openbox theme that
+#border looks thick, inactive looks behind active window
+#remove square impression button & in different colors, how can be?
+#button marks is designed based on box concept
+#
+#GENERAL PROPERTIES
+border.width: 1
+padding.height: 0
+padding.width: 4
+window.client.padding.height: 3
+window.client.padding.width: 3
+window.handle.width:0
+window.label.text.justify: Left
+#
+#USED AS ACTIVE WINDOW AREA (ALMOST IN UNIFORM COLOR)
+window.active.label.bg.shadow: 0
+window.active.label.bg: Gradient Vertical Raised
+window.active.label.bg.color: #4FB8D7
+window.active.label.bg.colorTo: #65CAE9
+window.active.title.separator.color: #65CAE9
+window.active.client.color: #65CAE9
+window.active.label.bg.border.color: #BCD1EA
+window.active.border.color: #23738B
+window.active.label.text.color: #2D2D2D
+window.active.label.text.font: shadow=n
+#
+#USED AS BUTTON AREA ON ACTIVE WINDOW
+window.active.title.bg: Solid Raised
+window.active.title.bg.highlight: 93
+window.active.title.bg.color: #C35A50
+window.active.title.bg.shadow: 50
+window.active.title.bg.border.color: #7FD1E7
+#
+#BUTTON BEHAVIOUR ON ACTIVE WINDOW
+#---unpressed ---
+window.active.button.unpressed.bg: ParentRelative Flat
+window.active.button.unpressed.image.color: #424242
+window.active.button.toggled.unpressed.bg: Solid Flat
+window.active.button.toggled.unpressed.bg.color: #EEA19A
+window.active.button.toggled.unpressed.image.color: #131313
+window.active.button.disabled.bg: ParentRelative Flat
+window.active.button.disabled.image.color: #CD7878
+#---hover---
+window.active.button.hover.bg: Gradient Vertical Flat
+window.active.button.hover.bg.color: #00FFFF
+window.active.button.hover.bg.colorTo: #0000FF
+window.active.button.hover.image.color: #CECECE
+window.active.button.toggled.hover.bg: Gradient Vertical Flat
+window.active.button.toggled.hover.bg.color: #00FFFF
+window.active.button.toggled.hover.bg.colorTo: #0000FF
+window.active.button.toggled.hover.image.color: #CCCCCC
+#---pressed---
+window.active.button.pressed.bg: Solid Flat
+window.active.button.pressed.bg.color: #7D332C
+window.active.button.pressed.image.color: #E4E4E4
+window.active.button.toggled.pressed.bg: Solid Sunken
+window.active.button.toggled.pressed.bg.color: #7D332C
+window.active.button.toggled.pressed.bg.border.color: #E2B7B8
+#
+#USED AS INACTIVE WINDOW AREA (ALMOST IN UNIFORM COLOR)
+window.inactive.label.bg.shadow: 0
+window.inactive.label.bg.highlight: 35
+window.inactive.label.bg: Solid Raised
+window.inactive.label.bg.color: #B0D8E5
+window.inactive.title.separator.color: #B0D8E5
+window.inactive.client.color: #B0D8E5
+window.inactive.label.bg.border.color: #BCD1EA
+window.inactive.border.color: #6D6D6D
+window.inactive.label.text.color: #9A9A9A
+#
+#USED AS BUTTON AREA ON INACTIVE WINDOW
+window.inactive.title.bg: Solid Raised
+window.inactive.title.bg.highlight: 64
+window.inactive.title.bg.color: #CCE5ED
+window.inactive.title.bg.shadow: 35
+window.inactive.title.bg.border.color: #E5EEF6
+#
+#BUTTON BEHAVIOUR ON INACTIVE WINDOW
+#---unpressed---
+window.inactive.button.unpressed.bg: ParentRelative Flat
+window.inactive.button.unpressed.image.color: #A5A5A5
+window.inactive.button.toggled.unpressed.bg: Solid Flat Border
+window.inactive.button.toggled.unpressed.bg.color: #D8E5E9
+window.inactive.button.toggled.unpressed.image.color: #909090
+window.inactive.button.toggled.unpressed.bg.border.color: #B0D8E5
+window.inactive.button.disabled.bg: ParentRelative Flat
+window.inactive.button.disabled.image.color: #CACACA
+#---hover---
+#
+#MENU PROPERTIES
+menu.border.color: #9EB3D5
+menu.title.bg: Gradient Vertical Flat
+menu.title.bg.color: #00C5FF
+menu.title.bg.colorTo: #0100FF
+menu.title.text.color: #FFFFFF
+menu.title.text.justify: center
+menu.items.bg: Solid Sunken
+menu.items.bg.color: #FFFFFF
+menu.items.bg.border.color: #2E1313
+menu.items.disabled.text.color: #808080
+menu.items.text.color: #000000
+menu.separator.color: #2972A9
+menu.items.active.bg: Solid Flat
+menu.items.active.bg.color: #65CAE9
+menu.items.active.text.color: #000000
+#
+#THANKS FOR USING
