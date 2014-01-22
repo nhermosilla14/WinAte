@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 0.5 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 0.5.2 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -186,9 +186,12 @@ echo "cp backup/autostart ~/.config/lxsession/autostart" >> uninstall.sh
 echo "rm -r backup" >> uninstall.sh
 echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
 echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
-echo "rm -r ~/.themes/WinAte8-ob" >> uninstall.sh
+echo "rm -r ~/.themes/$ob-tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
+echo "echo \"Cierre sesión y reábrala. | Logout and login.\""
+echo "lxsession-logout"
+chmod +x uninstall.sh
 clear
 echo $mensaje4
 echo $mensaje5
