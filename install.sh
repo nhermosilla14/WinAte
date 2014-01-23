@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 0.5.3 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 0.6 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 0.6 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
+echo "= WinAte 0.6 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -36,17 +36,7 @@ echo "=      Inicializando procesos... / Starting process...            ="
 echo "=                                                                 ="
 echo "==================================================================="
 sleep 2
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
+clear
 echo "================================================================================"
 echo "=                                                                              ="
 echo "=     Este script sólo ha sido probado en Debian 8 (Jessie), y sólo se         ="
@@ -128,9 +118,12 @@ else
 estado="ko"
 fi
 
-# Definir elección de tema
-
 # Definir ubicaciones
+
+if [ "$distro" == "Ubuntu" ]
+    then
+    
+# Definir elección de tema
 
 # Definir copia de archivos
 
