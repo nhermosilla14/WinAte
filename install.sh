@@ -118,15 +118,91 @@ else
 estado="ko"
 fi
 
+# Comprobación de datos de distro
+
+if [ "$estado" == "ko" ]
+    then
+    echo "$mensaje10"
+    exit 1
+fi
+
 # Definir ubicaciones
 
 if [ "$distro" == "Ubuntu" ]
     then
     
+elif [ "$distro" == "Ubuntu" ]
+    then
+    
+else
+    echo "$mensaje10"
+    exit 1
+    
 # Definir elección de tema
+
+echo $mensaje1
+read respuesta1
+respuesta=$respuesta1"_"
+if [ $respuesta == "7_" ]
+    then
+    ob_tema="WinAte7-ob"
+    fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
+    panel_tema="conf/panel7"
+    rc="$rc7"
+else
+    ob_tema="WinAte8-ob"
+    fondo_tema="$HOME/.backgrounds/img0.jpg"
+    panel_tema="conf/panel8"
+    rc="$rc8"
+fi
+
+# Definir comprobación de carpetas
+
+function comprobar(){
+        if [ -e $1 ]
+            then
+            echo "$1 : $mensaje7"
+        else
+            echo "$1 : $mensaje6"
+            mkdir $1
+        fi
+        }
+
+# Comprobación de carpetas de destino
+
+comprobar backup
+comprobar ~/.fonts
+comprobar ~/.themes
+comprobar ~/.icons
+comprobar ~/.backgrounds
 
 # Definir copia de archivos
 
+cp -r ./Win2-7 ~/.icons/
+cp -r ./Win2-7-fixed ~/.themes/
+cp -r ./aero-drop ~/.icons/
+cp -r $ob_tema ~/.themes/
+cp fonts/* ~/.fonts/
+cp backgrounds/* ~/.backgrounds/
+
 # Definir procesos individuales de respaldo
 
+function respanel(){
+    
+    }
+
+function respcmanfm(){
+    
+    }
+    
+function resopenbox(){
+    
+    }
+    
+function reslxsession(){
+    
+    }
+    
 # Definir procesos individuales de configuración
+
+
