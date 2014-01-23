@@ -130,6 +130,7 @@ if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
         lxsession_config="$HOME/.config/lxsession/Lubuntu/desktop.conf"
         openbox_config="$HOME/.config/openbox/lubuntu-rc.xml"
         lxpanel_config="$HOME/.config/lxpanel/Lubuntu/panels/panel"
+        pcmanfm_config="$HOME/.config/pcmanfm/lubuntu"
         lxde_ses_conf="Lubuntu"
     elif [ "$distro" == "Debian" ]
         then
@@ -137,6 +138,7 @@ if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
         openbox_config="$HOME/.config/openbox/lxde-rc.xml"
         lxpanel_config="$HOME/.config/lxpanel/LXDE/panels/panel"
         lxde_ses_conf="LXDE"
+        pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
     else
         echo "$mensaje10"
         exit -1
@@ -205,10 +207,10 @@ if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
     respuesta=$respuesta1"_"
     if [ "$respuesta" != "n_" ] && [ "$respuesta" != "N_" ]
         then
-        mv ~/.config/pcmanfm/"$lxde_ses_conf"/pcmanfm.conf ./backup/
-        echo "~/.config/pcmanfm/"$lxde_ses_conf"/pcmanfm.conf : $mensaje3"
+        mv "$pcmanfm_config/pcmanfm.conf" ./backup/
+        echo "$pcmanfm_config/pcmanfm.conf : $mensaje3"
         comprobar ~/.config/pcmanfm/
-        comprobar ~/.config/pcmanfm/"$lxde_ses_conf"
+        comprobar "$pcmanfm_config"
         pcmanfm -w $fondo_tema --wallpaper-mode=stretch
         echo "#Recuperación PCManFM" >> uninstall.sh
         echo "fondo=\$(cat backup/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
@@ -227,7 +229,7 @@ if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
     mv "$lxsession_config" ./backup/desktop.conf
     echo "$lxsession_config : $mensaje3"
     comprobar ~/.config/lxsession
-    comprobar ~/.config/lxsession/$lxde
+    comprobar ~/.config/lxsession/$lxde_ses_conf
     cp conf/desktop.conf ~/.config/lxsession/LXDE/desktop.conf
     echo "rm $lxsession_config" >> uninstall.sh
     echo "cp backup/desktop.conf $lxsession_config" >> uninstall.sh
