@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 0.5.3 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
+echo "= WinAte 0.6 - Windows 7/8 (r) Transformation Pack for Debian/LXDE ="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -70,8 +70,8 @@ echo "2)English"
 echo ""
 echo "1/2?"
 read respuesta
-
 respuesta=$respuesta"_"
+# Idiomas y localizaciones
 if [ "$respuesta" == "2_" ]
     then
     si="y"
@@ -106,6 +106,7 @@ else
 fi
 
 # Comprobar distro
+
 distro=$(cat /etc/*-release | grep '^NAME=')
 distro=${distro:6}
 distro="$(cut -d ' ' -f 1 <<< "$distro")"
@@ -119,151 +120,20 @@ if [ "$argumentos" == "--force_" ]
 else
     echo "$mensaje8 $distro$mensaje9"
     read respuesta
-    echo "$respuesta"
 fi
-
 if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
-    then
-# Ubicaciones generales (pueden añadirse más)
-    if [ "$distro" == "Ubuntu" ]
-        then
-        lxsession_config="$HOME/.config/lxsession/Lubuntu/desktop.conf"
-        openbox_config="$HOME/.config/openbox/lubuntu-rc.xml"
-        lxpanel_config="$HOME/.config/lxpanel/Lubuntu/panels/panel"
-        pcmanfm_config="$HOME/.config/pcmanfm/lubuntu"
-        lxde_ses_conf="Lubuntu"
-    elif [ "$distro" == "Debian" ]
-        then
-        lxsession_config="$HOME/.config/lxsession/LXDE/desktop.conf"
-        openbox_config="$HOME/.config/openbox/lxde-rc.xml"
-        lxpanel_config="$HOME/.config/lxpanel/LXDE/panels/panel"
-        lxde_ses_conf="LXDE"
-        pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
-    else
-        echo "$mensaje10"
-        exit -1
-    fi
-
-
-    function comprobar(){
-        if [ -e $1 ]
-            then
-            echo "$1 : $mensaje7"
-        else
-            echo "$1 : $mensaje6"
-            mkdir $1
-        fi
-        }
-    clear
-    echo $mensaje1
-    read respuesta1
-    respuesta=$respuesta1"_"
-    if [ $respuesta == "7_" ]
-        then
-        ob_tema="WinAte7-ob"
-        fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
-        panel_tema="conf/panel7"
-        rc="conf/lxde-rc7.xml"
-    else
-        ob_tema="WinAte8-ob"
-        fondo_tema="$HOME/.backgrounds/img0.jpg"
-        panel_tema="conf/panel8"
-        rc="conf/lxde-rc8.xml"
-    fi
-
-
-    comprobar backup
-    comprobar ~/.fonts
-    comprobar ~/.themes
-    comprobar ~/.icons
-    comprobar ~/.backgrounds
-
-#Instalación de temas
-    cp -r ./Win2-7 ~/.icons/
-    cp -r ./Win2-7-fixed ~/.themes/
-    cp -r ./aero-drop ~/.icons/
-    cp -r $ob_tema ~/.themes/
-    cp fonts/* ~/.fonts/
-    cp backgrounds/* ~/.backgrounds/
-
-
-#Respaldo y configuración panel
-    mv "$lxpanel_config" ./backup
-    echo "$lxpanel_config : $mensaje3"
-    comprobar ~/.config/lxpanel/
-    comprobar ~/.config/lxpanel/"$lxde_ses_conf"
-    comprobar ~/.config/lxpanel/"$lxde_ses_conf"/panels
-    cp "$panel_tema" "$lxpanel_config"
-    echo "#!/bin/bash" > uninstall.sh
-    echo "#Recuperación panel" >> uninstall.sh
-    echo "killall lxpanel" >> uninstall.sh
-    echo "rm ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
-    echo "cp backup/panel ~/.config/lxpanel/LXDE/panels/panel" >> uninstall.sh
-
-
-#Respaldo y configuración PCManFM
-    echo "$mensaje2"
-    read respuesta1
-    respuesta=$respuesta1"_"
-    if [ "$respuesta" != "n_" ] && [ "$respuesta" != "N_" ]
-        then
-        mv "$pcmanfm_config/pcmanfm.conf" ./backup/
-        echo "$pcmanfm_config/pcmanfm.conf : $mensaje3"
-        comprobar ~/.config/pcmanfm/
-        comprobar "$pcmanfm_config"
-        pcmanfm -w $fondo_tema --wallpaper-mode=stretch
-        echo "#Recuperación PCManFM" >> uninstall.sh
-        echo "fondo=\$(cat backup/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
-        echo "ubicacion=\"\${fondo:10}\"" >> uninstall.sh
-        echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch" >> uninstall.sh
-    fi
-
-#Configuración QT4
-#
-# Temporalmente deshabilitada
-#
-#rm ~/.config/Trolltech.conf
-#cp conf/Trolltech.conf ~/.config/Trolltech.conf
-
-#Respaldo y configuración LXSession
-    mv "$lxsession_config" ./backup/desktop.conf
-    echo "$lxsession_config : $mensaje3"
-    comprobar ~/.config/lxsession
-    comprobar ~/.config/lxsession/$lxde_ses_conf
-    cp conf/desktop.conf ~/.config/lxsession/LXDE/desktop.conf
-    echo "rm $lxsession_config" >> uninstall.sh
-    echo "cp backup/desktop.conf $lxsession_config" >> uninstall.sh
-    mv ~/.config/lxsession/"$lxde_ses_conf"/autostart ./backup
-    rm ~/.config/lxsession/"$lxde_ses_conf"/autostart
-    echo "@pcmanfm --desktop --profile $lxde_ses_conf" >> ~/.config/lxsession/"$lxde_ses_conf"/autostart
-
-
-#Respaldo y configuración Openbox
-    mv "$openbox_config" ./backup/lxde-rc.xml
-    echo "$openbox_config : $mensaje3"
-    comprobar ~/.config/openbox/
-    cp "$rc" "$openbox_conf"
-    echo "killall openbox" >> uninstall.sh
-    echo "rm $openbox_config" >> uninstall.sh
-    echo "cp backup/lxde-rc.xml $openbox_config" >> uninstall.sh
-    echo "rm ~/.config/lxsession/$lxde_ses_conf/autostart" >> uninstall.sh
-    echo "cp backup/autostart ~/.config/lxsession/$lxde_ses_conf/autostart" >> uninstall.sh
-    echo "rm -r backup" >> uninstall.sh
-    echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
-    echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
-    echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
-    echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
-    echo "rm ~/.backgrounds/img*" >> uninstall.sh
-    echo "echo \"Cierre sesión y reábrala. | Logout and login.\"" >> uninstall.sh
-    echo "lxsession-logout" >> uninstall.sh
-    chmod +x uninstall.sh >> uninstall.sh
-    clear
-    echo $mensaje4
-    echo $mensaje5
-    read
-    lxsession-logout
-    exit 0
+then
+estado="ok"
 else
-    echo "$mensaje10"
-    exit -1
+estado="ko"
 fi
+
+# Definir elección de tema
+
+# Definir ubicaciones
+
+# Definir copia de archivos
+
+# Definir procesos individuales de respaldo
+
+# Definir procesos individuales de configuración
