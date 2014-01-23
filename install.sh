@@ -130,10 +130,12 @@ fi
 
 if [ "$distro" == "Ubuntu" ]
     then
-    
-elif [ "$distro" == "Ubuntu" ]
+    rc7="conf/lubuntu-rc7.xml"
+    rc8="conf/lubuntu-rc8.xml"
+elif [ "$distro" == "Debian" ]
     then
-    
+    rc7="conf/lxde-rc7.xml"
+    rc8="conf/lxde-rc8.xml"
 else
     echo "$mensaje10"
     exit 1
@@ -205,4 +207,21 @@ function reslxsession(){
     
 # Definir procesos individuales de configuración
 
+function conf_panel(){
+    
+    }
+    
+function conf_pcmanfm(){
+    
+    }
+    
+function conf_openbox(){
+    
+    }
+    
+function conf_lxsession(){
+    
+    }
+
+# Proceso general
 
