@@ -143,7 +143,8 @@ if [ "$distro" == "Ubuntu" ]
     openbox_tgt="lxde-rc.xml"
     pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
     lxsession_config="$HOME/.config/lxsession/LXDE"
-    lxsession_set="conf/desktop_ubuntu.conf"
+    lxsession7_set="conf/desktop7_ubuntu.conf"
+    lxsession8_set="conf/desktop8_ubuntu.conf"
     lxsession_profile="LXDE"
     rc7="conf/lxde-rc7.xml"
     rc8="conf/lxde-rc8.xml"
@@ -155,7 +156,8 @@ elif [ "$distro" == "Debian" ]
     openbox_tgt="lxde-rc.xml"
     pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
     lxsession_config="$HOME/.config/lxsession/LXDE"
-    lxsession_set="conf/desktop_debian.conf"
+    lxsession7_set="conf/desktop7_debian.conf"
+    lxsession8_set="conf/desktop8_debian.conf"
     lxsession_profile="LXDE"
     rc7="conf/lxde-rc7.xml"
     rc8="conf/lxde-rc8.xml"
@@ -173,12 +175,14 @@ if [ $respuesta == "7_" ]
     ob_tema="WinAte7-ob"
     fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
     panel_tema="conf/panel7"
+    lxsession_set="$lxsession7_set"
     rc="$rc7"
 else
     ob_tema="WinAte8-ob"
     fondo_tema="$HOME/.backgrounds/img0.jpg"
     panel_tema="conf/panel8"
     rc="$rc8"
+    lxsession_set="$lxsession8_set"
 fi
 
 # Definir comprobación de carpetas
@@ -275,6 +279,7 @@ comprobar ~/.config/lxsession
 cp -r ./Win2-7 ~/.icons/
 cp -r ./Win2-7-fixed ~/.themes/
 cp -r ./aero-drop ~/.icons/
+cp -r ./win8 ~/.icons/
 cp -r $ob_tema ~/.themes/
 cp fonts/* ~/.fonts/
 cp backgrounds/* ~/.backgrounds/
@@ -289,6 +294,7 @@ conf_panel
 conf_pcmanfm
 echo "rm -r backup" >> uninstall.sh
 echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
+echo "rm -r ~/.icons/win8" >> uninstall.sh
 echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
 echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
