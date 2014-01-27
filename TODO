@@ -7,3 +7,11 @@ Since my native language is spanish, I'll write this section using it:
 - Falta integrar soporte para Lubuntu
 - Falta integrar soporte para Fedora
 - Falta mejorar los íconos
+
+Hecho:
+
+- Soporte para Debian y Ubuntu (además de otras distros con base-install de LXDE)
+- Temas GTK 2/3, Openbox, Íconos y Fondos
+- Respaldo perfecto de configuraciones
+- Detección automática de distro incompatible
+- Configuración mediante asistente
