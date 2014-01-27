@@ -4,8 +4,8 @@ Type=X-GNOME-Metatheme
 Comment=Inspired on Win2-7 but without libia-ora engine
 
 [X-GNOME-Metatheme]
-GtkTheme=Win2-7(Pixmap)
-MetacityTheme=Win2-7(Pixmap)
+GtkTheme=Win2-7-fixed
+MetacityTheme=Win2-7-fixed
 IconTheme=Win2-7
 CursorTheme=aero-drop
 CursorSize=18
