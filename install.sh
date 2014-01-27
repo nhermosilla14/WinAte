@@ -39,13 +39,13 @@ sleep 2
 clear
 echo "================================================================================"
 echo "=                                                                              ="
-echo "=     Este script sólo ha sido probado en Debian 8 (Jessie), y sólo se         ="
-echo "=   recomienda para su uso en Debian, Crunchbang y Ubuntu. En otras distros    ="
+echo "= Este script sólo ha sido probado en Debian 8 (Jessie), y sólo se recomienda  ="
+echo "=  para su uso en Debian, Crunchbang (no probado) y Ubuntu. En otras distros   ="
 echo "=    se considera experimental. Siempre requiere al menos la versión 0.4.9 de  ="
 echo "=                            LXSession.                                        ="
 echo "=------------------------------------------------------------------------------="
 echo "= This script has been only tested in Debian 8 (Jessie), and it's only intented="
-echo "=      to be used in Debian, Crunchbang and Ubuntu. In other distros it's      ="
+echo "= to be used in Debian,Crunchbang(not tested) and Ubuntu. In other distros it's="
 echo "= considered experimental. It always need at least version 0.4.9 of LXSession. ="
 echo "=                                                                              ="
 echo "================================================================================"
@@ -68,29 +68,29 @@ if [ "$respuesta" == "2_" ]
     SI="Y"
     mensaje1="What theme do you want to setup?(default 8) 7/8"
     mensaje2="Do you want to setup the wallpaper too? Y/n"
-    mensaje3="File backed-up"
+    mensaje3="Configuration backed-up"
     mensaje4="Installation finished. Logout and login again to let changes be applied."
     mensaje5="Press enter to open logout dialog."
     mensaje6="Directory created"
     mensaje7="Directory found"
     mensaje8="Your distro seems to be"
     mensaje9=". Is that right? (Y/n)"
-    mensaje10="Distribution unsupported. To force installation, use script with \"--force\". Exiting..."
+    mensaje10="System directories do not match, or distribution unsupported. To force installation, use script with \"--force\". Exiting..."
     mensaje11="Type your distro:"
-    mensaje12="Installaer must exit now."
+    mensaje12="Installer must exit now."
 else
     si="s"
     SI="S"
     mensaje1="Qué tema desea configurar?(opción por defecto: 8) 7/8"
     mensaje2="Desea cambiar el fondo de pantalla también? S/n"
-    mensaje3="Archivo respaldado"
+    mensaje3="Configuración respaldada."
     mensaje4="Instalación finalizada. Cierre y abra sesión para aplicar los cambios."
     mensaje5="Presione enter para abrir el diálogo de cierre."
     mensaje6="Directorio creado"
     mensaje7="Directorio encontrado"
     mensaje8="Su distro parece ser"
     mensaje9=". ¿Es correcto?(S/n)"
-    mensaje10="Distribución no soportada. Para forzar la instalación, use \"--force\". Saliendo..."
+    mensaje10="Las carpetas de sistema no coinciden, o la distribución no está soportada. Para forzar la instalación, use \"--force\". Saliendo..."
     mensaje11="Ingrese su distro:"
     mensaje12="El instalador debe salir ahora."
 fi
@@ -111,11 +111,12 @@ else
     echo "$mensaje8 $distro$mensaje9"
     read respuesta
 fi
+
 if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
-then
-estado="ok"
+    then
+    estado="ok"
 else
-estado="ko"
+    estado="ko"
 fi
 
 # Comprobación de datos de distro
@@ -126,20 +127,42 @@ if [ "$estado" == "ko" ]
     exit 1
 fi
 
-# Definir ubicaciones
+# Definir ubicaciones para cada distro
 
 if [ "$distro" == "Ubuntu" ]
     then
-    rc7="conf/lubuntu-rc7.xml"
-    rc8="conf/lubuntu-rc8.xml"
+    if [ -d $HOME/.config/lxsession/Lubuntu ]
+        then
+        echo "$mensaje10"
+        exit 1
+    fi 
+    ## COMPROBAR QUE NO SEA LUBUNTU Y LUEGO:
+    lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
+    #panel="conf/panel_ubuntu"
+    openbox_config="$HOME/.config/openbox"
+    openbox_tgt="lxde-rc.xml"
+    pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
+    lxsession_config="$HOME/.config/lxsession/LXDE"
+    lxsession_set="conf/desktop_ubuntu.conf"
+    lxsession_profile="LXDE"
+    rc7="conf/lxde-rc7.xml"
+    rc8="conf/lxde-rc8.xml"
 elif [ "$distro" == "Debian" ]
     then
+    lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
+    #panel="conf/panel_debian"
+    openbox_config="$HOME/.config/openbox"
+    openbox_tgt="lxde-rc.xml"
+    pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
+    lxsession_config="$HOME/.config/lxsession/LXDE"
+    lxsession_set="conf/desktop_debian.conf"
+    lxsession_profile="LXDE"
     rc7="conf/lxde-rc7.xml"
     rc8="conf/lxde-rc8.xml"
 else
     echo "$mensaje10"
     exit 1
-    
+fi    
 # Definir elección de tema
 
 echo $mensaje1
@@ -170,13 +193,82 @@ function comprobar(){
         fi
         }
 
+# Definir procesos individuales de respaldo
+
+function respanel(){
+    mv "$lxpanel_config/"* ./backup/lxpanel
+    echo "$lxpanel_config : $mensaje3"
+    echo "rm $lxpanel_config/panel" >> uninstall.sh
+    echo "mv ./backup/panel* $lxpanel_config/" >> uninstall.sh
+    }
+
+function respcmanfm(){
+    cp $pcmanfm_config/pcmanfm.conf ./backup/pcmanfm
+    echo "fondo=\$(cat backup/pcmanfm/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
+    echo "ubicacion=\"\${fondo:10}\"" >> uninstall.sh
+    echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch" >> uninstall.sh 
+    }
+    
+function resopenbox(){
+    mv $openbox_config/lxde-rc.xml ./backup/openbox/
+    echo "$openbox_config : $mensaje3"
+    echo "rm $openbox_config/lxde-rc.xml" >> uninstall.sh
+    echo "cp backup/openbox/lxde-rc.xml $openbox_config/lxde-rc.xml" >> uninstall.sh
+    }
+    
+function reslxsession(){
+    mv "$lxsession_config/desktop.conf" "backup/lxsession/"
+    mv "$lxsession_config/autostart" "backup/lxsession/"
+    echo "rm $lxsession_config/*" >> uninstall.sh
+    echo "cp backup/lxsession/desktop.conf $lxsession_config" >> uninstall.sh
+    echo "cp backup/lxsession/autostart $lxsession_config" >> uninstall.sh
+    }
+    
+# Definir procesos individuales de configuración
+
+function conf_panel(){
+    cp "$panel_tema" "$lxpanel_config/panel"
+    }
+    
+function conf_pcmanfm(){
+    echo "$mensaje2"
+    read respuesta1
+    respuesta=$respuesta1"_"
+    if [ "$respuesta" != "n_" ] && [ "$respuesta" != "N_" ]
+        then
+        respcmanfm
+        pcmanfm -w "$fondo_tema" --wallpaper-mode=stretch
+        
+    fi
+    }
+    
+function conf_openbox(){
+    cp "conf/$rc" "$openbox_config/$openbox_tgt"
+    }
+    
+function conf_lxsession(){
+    #linea_ori_0="$(cat ~/.config/lxsession/LXDE/desktop.conf | grep composite_manager/command=)"
+    #linea_fin_0="composite_manager/command="
+    #sed -e s/"$linea_ori_0"/"$linea_fin_0"/g "$lxsession_config/" > temp
+    cp "$lxsession_set" "$lxsession_config/desktop.conf"
+    echo "@pcmanfm --desktop --profile $lxsession_profile"
+    }
+
 # Comprobación de carpetas de destino
 
 comprobar backup
+comprobar backup/lxpanel
+combrobar backup/pcmanfm
+comprobar backup/openbox
+comprobar backup/lxsession
 comprobar ~/.fonts
 comprobar ~/.themes
 comprobar ~/.icons
 comprobar ~/.backgrounds
+comprobar ~/.config/openbox/
+comprobar ~/.config/lxpanel
+comprobar ~/.config/pcmanfm
+comprobar ~/.config/lxsession       
 
 # Definir copia de archivos
 
@@ -186,42 +278,26 @@ cp -r ./aero-drop ~/.icons/
 cp -r $ob_tema ~/.themes/
 cp fonts/* ~/.fonts/
 cp backgrounds/* ~/.backgrounds/
+echo '#!/bin/bash' > uninstall.sh
 
-# Definir procesos individuales de respaldo
-
-function respanel(){
-    
-    }
-
-function respcmanfm(){
-    
-    }
-    
-function resopenbox(){
-    
-    }
-    
-function reslxsession(){
-    
-    }
-    
-# Definir procesos individuales de configuración
-
-function conf_panel(){
-    
-    }
-    
-function conf_pcmanfm(){
-    
-    }
-    
-function conf_openbox(){
-    
-    }
-    
-function conf_lxsession(){
-    
-    }
-
-# Proceso general
-
+reslxsession
+resopenbox
+respanel
+conf_lxsession
+conf_openbox
+conf_panel
+conf_pcmanfm
+echo "rm -r backup" >> uninstall.sh
+echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
+echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
+echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
+echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
+echo "rm ~/.backgrounds/img*" >> uninstall.sh
+echo "echo \"Cierre sesión y reábrala. | Logout and login.\"" >> uninstall.sh
+echo "lxsession-logout" >> uninstall.sh
+chmod +x uninstall.sh >> uninstall.sh
+clear
+echo "$mensaje4"
+echo "$mensaje5"
+read
+lxsession-logout
