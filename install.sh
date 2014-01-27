@@ -78,6 +78,9 @@ if [ "$respuesta" == "2_" ]
     mensaje10="System directories do not match, or distribution unsupported. To force installation, use script with \"--force\". Exiting..."
     mensaje11="Type your distro:"
     mensaje12="Installer must exit now."
+    mensaje13=" found."
+    mensaje14="Unable to find "
+    mensaje15=". Install it and try again. Exiting..."
 else
     si="s"
     SI="S"
@@ -93,6 +96,9 @@ else
     mensaje10="Las carpetas de sistema no coinciden, o la distribución no está soportada. Para forzar la instalación, use \"--force\". Saliendo..."
     mensaje11="Ingrese su distro:"
     mensaje12="El instalador debe salir ahora."
+    mensaje13=" encontrado"
+    mensaje14="No se pudo encontrar el programa "
+    mensaje15=". Instálelo y vuelva a intentar. Saliendo..."
 fi
 
 # Comprobar distro
@@ -112,6 +118,14 @@ else
     read respuesta
 fi
 
+if [ "$argumentos" == "--verbose_" ]
+    then
+    verboso="1"
+    echo "Seleccionado modo de depuración"
+    else
+    verboso="0"
+fi
+
 if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
     then
     estado="ok"
@@ -126,6 +140,18 @@ if [ "$estado" == "ko" ]
     echo "$mensaje10"
     exit 1
 fi
+
+# Comprobar programas
+function presente(){
+    if [ -x /usr/bin/$1 ]
+    then
+    echo "$1$mensaje13"
+    else
+    echo "$mensaje14$1$mensaje15"
+    exit 2
+    fi
+    }
+
 
 # Definir ubicaciones para cada distro
 
@@ -204,13 +230,23 @@ function respanel(){
     echo "$lxpanel_config : $mensaje3"
     echo "rm $lxpanel_config/panel" >> uninstall.sh
     echo "mv ./backup/lxpanel/* $lxpanel_config/" >> uninstall.sh
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
 
 function respcmanfm(){
     cp $pcmanfm_config/pcmanfm.conf ./backup/pcmanfm
-    echo "fondo=\$(cat backup/pcmanfm/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
+    echo "fondo=\$(cat ./backup/pcmanfm/pcmanfm.conf | grep wallpaper=)" >> uninstall.sh
     echo "ubicacion=\"\${fondo:10}\"" >> uninstall.sh
-    echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch" >> uninstall.sh 
+    echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch" >> uninstall.sh
+    if [ "$verboso" == "1" ]
+        then
+        echo "fondo=\$(cat ./backup/pcmanfm/pcmanfm.conf | grep wallpaper=)"
+        echo "ubicacion=\"\${fondo:10}\""
+        echo "pcmanfm -w \"\$ubicacion\" --wallpaper-mode=stretch"
+    fi
     }
     
 function resopenbox(){
@@ -218,6 +254,10 @@ function resopenbox(){
     echo "$openbox_config : $mensaje3"
     echo "rm $openbox_config/lxde-rc.xml" >> uninstall.sh
     echo "cp backup/openbox/lxde-rc.xml $openbox_config/lxde-rc.xml" >> uninstall.sh
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
     
 function reslxsession(){
@@ -226,17 +266,29 @@ function reslxsession(){
     echo "rm $lxsession_config/*" >> uninstall.sh
     echo "cp backup/lxsession/desktop.conf $lxsession_config" >> uninstall.sh
     echo "cp backup/lxsession/autostart $lxsession_config" >> uninstall.sh
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
     
 # Definir procesos individuales de configuración
 
 function conf_panel(){
     cp "$panel_tema" "$lxpanel_config/panel"
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
     
 function conf_pcmanfm(){
     echo "$mensaje2"
     read respuesta1
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     respuesta=$respuesta1"_"
     if [ "$respuesta" != "n_" ] && [ "$respuesta" != "N_" ]
         then
@@ -248,6 +300,10 @@ function conf_pcmanfm(){
     
 function conf_openbox(){
     cp "$rc" "$openbox_config/$openbox_tgt"
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
     
 function conf_lxsession(){
@@ -256,13 +312,22 @@ function conf_lxsession(){
     #sed -e s/"$linea_ori_0"/"$linea_fin_0"/g "$lxsession_config/" > temp
     cp "$lxsession_set" "$lxsession_config/desktop.conf"
     echo "@pcmanfm --desktop --profile $lxsession_profile" >> "$lxsession_config/autostart"
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
     }
 
 # Comprobación de carpetas de destino
 
+presente lxpanel
+presente lxsession
+presente compton
+presente pcmanfm
+presente openbox
 comprobar backup
 comprobar backup/lxpanel
-combrobar backup/pcmanfm
+comprobar backup/pcmanfm
 comprobar backup/openbox
 comprobar backup/lxsession
 comprobar ~/.fonts
@@ -273,7 +338,10 @@ comprobar ~/.config/openbox/
 comprobar ~/.config/lxpanel
 comprobar ~/.config/pcmanfm
 comprobar ~/.config/lxsession       
-
+if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+fi
 # Definir copia de archivos
 
 cp -r ./Win2-7 ~/.icons/
@@ -285,6 +353,11 @@ cp -r $ob_tema ~/.themes/
 cp fonts/* ~/.fonts/
 cp backgrounds/* ~/.backgrounds/
 echo '#!/bin/bash' > uninstall.sh
+
+if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+fi
 
 reslxsession
 resopenbox
@@ -299,6 +372,7 @@ echo "rm -r ~/.icons/win8" >> uninstall.sh
 echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
 echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
+echo "rm -r ~/.themes/Win2-8-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
 echo "echo \"Reinicie su equipo. | Reboot your pc.\"" >> uninstall.sh
 echo "lxsession-logout" >> uninstall.sh
