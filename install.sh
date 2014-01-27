@@ -203,7 +203,7 @@ function respanel(){
     mv "$lxpanel_config/"* ./backup/lxpanel
     echo "$lxpanel_config : $mensaje3"
     echo "rm $lxpanel_config/panel" >> uninstall.sh
-    echo "mv ./backup/panel* $lxpanel_config/" >> uninstall.sh
+    echo "mv ./backup/lxpanel/* $lxpanel_config/" >> uninstall.sh
     }
 
 function respcmanfm(){
@@ -247,7 +247,7 @@ function conf_pcmanfm(){
     }
     
 function conf_openbox(){
-    cp "conf/$rc" "$openbox_config/$openbox_tgt"
+    cp "$rc" "$openbox_config/$openbox_tgt"
     }
     
 function conf_lxsession(){
@@ -255,7 +255,7 @@ function conf_lxsession(){
     #linea_fin_0="composite_manager/command="
     #sed -e s/"$linea_ori_0"/"$linea_fin_0"/g "$lxsession_config/" > temp
     cp "$lxsession_set" "$lxsession_config/desktop.conf"
-    echo "@pcmanfm --desktop --profile $lxsession_profile"
+    echo "@pcmanfm --desktop --profile $lxsession_profile" >> "$lxsession_config/autostart"
     }
 
 # Comprobación de carpetas de destino
@@ -278,6 +278,7 @@ comprobar ~/.config/lxsession
 
 cp -r ./Win2-7 ~/.icons/
 cp -r ./Win2-7-fixed ~/.themes/
+cp -r ./Win2-8-fixed ~/.themes/
 cp -r ./aero-drop ~/.icons/
 cp -r ./win8 ~/.icons/
 cp -r $ob_tema ~/.themes/

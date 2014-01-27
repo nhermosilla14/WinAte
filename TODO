@@ -6,7 +6,7 @@ Since my native language is spanish, I'll write this section using it:
 - Falta mejorar el menú
 - Falta integrar soporte para Lubuntu
 - Falta integrar soporte para Fedora
-- Falta mejorar los íconos
+
 
 Hecho:
 
@@ -15,3 +15,4 @@ Hecho:
 - Respaldo perfecto de configuraciones
 - Detección automática de distro incompatible
 - Configuración mediante asistente
+- Iconos mejorados
