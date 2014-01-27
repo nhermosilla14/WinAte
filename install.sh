@@ -69,7 +69,7 @@ if [ "$respuesta" == "2_" ]
     mensaje1="What theme do you want to setup?(default 8) 7/8"
     mensaje2="Do you want to setup the wallpaper too? Y/n"
     mensaje3="Configuration backed-up"
-    mensaje4="Installation finished. Logout and login again to let changes be applied."
+    mensaje4="Installation finished. Reboot to apply changes."
     mensaje5="Press enter to open logout dialog."
     mensaje6="Directory created"
     mensaje7="Directory found"
@@ -84,7 +84,7 @@ else
     mensaje1="Qué tema desea configurar?(opción por defecto: 8) 7/8"
     mensaje2="Desea cambiar el fondo de pantalla también? S/n"
     mensaje3="Configuración respaldada."
-    mensaje4="Instalación finalizada. Cierre y abra sesión para aplicar los cambios."
+    mensaje4="Instalación finalizada. Reinicie para aplicar los cambios."
     mensaje5="Presione enter para abrir el diálogo de cierre."
     mensaje6="Directorio creado"
     mensaje7="Directorio encontrado"
@@ -293,7 +293,7 @@ echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
 echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
 echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
-echo "echo \"Cierre sesión y reábrala. | Logout and login.\"" >> uninstall.sh
+echo "echo \"Reinicie su equipo. | Reboot your pc.\"" >> uninstall.sh
 echo "lxsession-logout" >> uninstall.sh
 chmod +x uninstall.sh >> uninstall.sh
 clear
