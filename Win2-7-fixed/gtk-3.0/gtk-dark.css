@@ -1,54 +1,17 @@
-/*
-# name: Windows 8
-# author: Maxime Doyen
-# date: May 20, 2013
-# description: Windows 8 modern ui gtk theme v0.1
-*/
 
-/* default color scheme */
-@define-color bg_color #f0f0f0;
-@define-color fg_color #000000;
-@define-color base_color #ffffff;
-@define-color text_color #000000;
-@define-color selected_bg_color #3399ff;
-@define-color selected_fg_color #ffffff;
-@define-color tooltip_bg_color #FFFFE1;
-@define-color tooltip_fg_color #000000;
-
-/* colormap actually used by the theme, to be overridden in other css files */
-@define-color theme_bg_color @bg_color;
-@define-color theme_fg_color @fg_color;
-@define-color theme_base_color @base_color;
-@define-color theme_text_color @text_color;
-@define-color theme_selected_bg_color @selected_bg_color;
-@define-color theme_selected_fg_color @selected_fg_color;
-@define-color theme_tooltip_bg_color @tooltip_bg_color;
-@define-color theme_tooltip_fg_color @tooltip_fg_color;
+/* dark colormap */
+@define-color theme_bg_color #333;
+@define-color theme_fg_color #ccc;
+@define-color theme_base_color #3c3c3c;
+@define-color theme_text_color #eee;
+@define-color theme_selected_bg_color #58e;
+@define-color theme_selected_fg_color #fff;
+@define-color theme_tooltip_bg_color #333;
+@define-color theme_tooltip_fg_color #eee;
 
 /* shadow effects */
-@define-color light_shadow #fff;
+@define-color light_shadow #444;
 @define-color dark_shadow #000;
-
-/* windows 8 colors */
-@define-color gradient_default_s #F0F0F0;
-@define-color gradient_default_e #E5E5E5;
-
-@define-color border_hover #7EB4EA;
-@define-color gradient_hover_s #ECF4FC;
-@define-color gradient_hover_e #DEECFC;
-
-@define-color border_active #569DE5;
-@define-color gradient_active_s #DAECFC;
-@define-color gradient_active_e #C4E0FC;
-
-@define-color progress_color #06B025;
-@define-color progress_bg #e6e6e6;
-
-@define-color tootip_border #646464;
-
-/* insensitive colors */
-@define-color insensitive_bg_color #A0A0A0;
-@define-color insensitive_fg_color @theme_fg_color;
 
 /* misc colors used by gtk+ */
 @define-color info_fg_color rgb (0, 0, 0);
@@ -78,7 +41,9 @@
 @define-color osd_fg #eee;
 @define-color osd_bg alpha(@osd_base, 0.8);
 
-
+/* backdrop colors */
+@define-color backdrop_selected_bg_color shade (@theme_bg_color, 0.9);
+@define-color backdrop_selected_fg_color @theme_fg_color;
 
 /* window manager colors */
 @define-color wm_bg @theme_bg_color;
@@ -88,7 +53,6 @@
 @define-color wm_border_unfocused shade(@theme_bg_color, 0.8);
 
 @import url("gtk-widgets.css");
-
 @import url("gtk-widgets-assets.css");
 /*@import url("gtk-widgets-backdrop.css");*/
 @import url("apps/gnome-applications.css");
