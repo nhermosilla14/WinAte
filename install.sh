@@ -353,6 +353,7 @@ function conf_slim(){
     su -c "cp -r $slim_tema_dir /usr/share/slim/themes/"
     echo "$mensaje20"
     read respuesta
+    respuesta=$respuesta"_"
     if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
         then
         echo "$mensaje18"
