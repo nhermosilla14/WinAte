@@ -373,10 +373,11 @@ function conf_slim(){
         then
         echo "$extension"
         fi
-        sudo cp "$ubicacion" "/usr/share/slim/themes/$slim_tema/background.$extension"
+        sudo rm "/usr/share/slim/themes/$slim_tema/background.*"
+        sudo cp "$ubicacion" "/usr/share/slim/themes/"$slim_tema"/background."$extension
         if [ "$verboso" == "1" ]
         then
-        echo "cp" "$ubicacion" "/usr/share/slim/themes/$slim_tema/background.$extension"
+        echo cp "$ubicacion" "/usr/share/slim/themes/"$slim_tema"/background."$extension
         fi
         echo "$mensaje19"
     fi
