@@ -1,6 +1,6 @@
 Since my native language is spanish, I'll write this section using it:
 
-- Falta implementar la ventana de login (temas para LightDM y Slim)
+- Falta implementar la ventana de login (tema para LightDM)
 - Falta incluir gadgets (screenlets)
 - Falta incluir hot-corners (y buscar una forma ligera de hacerlo)
 - Falta mejorar el menú
@@ -16,3 +16,4 @@ Hecho:
 - Detección automática de distro incompatible
 - Configuración mediante asistente
 - Iconos mejorados
+- Tema login SLiM
