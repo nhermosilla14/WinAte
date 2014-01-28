@@ -1,0 +1,39 @@
+# Win8 Inspired theme 
+# Copyright 2014 Nicolás Hermosilla
+# This theme is distributed under the terms of GPL v2 or later
+# Art work made with GIMP
+
+# Messages (ie: shutdown)
+msg_color               #000000
+msg_font                Sans:size=18:bold:dpi=96
+msg_x                   50%
+msg_y                   40%
+msg_shadow_color #FFFFFF
+msg_shadow_xoffset 1
+msg_shadow_yoffset 1
+
+# valid values: stretch, tile
+background_style        stretch
+background_color        #eedddd
+
+# Input controls
+input_panel_x           50%
+input_panel_y           50%
+input_name_x            92
+input_name_y            263
+input_font              Sans:size=12:dpi=96
+input_fgcolor           #000000
+
+# Username / password request
+username_font           Sans:size=14:dpi=96
+username_color          #FFFFFF
+username_x              50%
+username_y              220
+password_x              50%
+password_y              220
+username_shadow_color   #FFFFFF
+username_shadow_xoffset 1
+username_shadow_yoffset 1
+
+username_msg            Usuario
+password_msg            Password
