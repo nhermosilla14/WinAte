@@ -84,7 +84,7 @@ if [ "$respuesta" == "2_" ]
     mensaje14="Unable to find "
     mensaje15=". Install it and try again. Exiting..."
     mensaje16="Slim display manager has been detected. ¿Do you want to set the login theme? (Y/n)"
-    mensaje17="You will be ask for root access, ir order to write the config files."
+    mensaje17="You will be ask for root access a few times (for compatibility, sudo is not used), ir order to write the config files."
     mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
     mensaje19="Your image has been saved. Now you can safely change your wallpaper."
 else
@@ -107,9 +107,10 @@ else
     mensaje14="No se pudo encontrar el programa "
     mensaje15=". Instálelo y vuelva a intentar. Saliendo..."
     mensaje16="Se ha detectado el gestor de pantalla Slim. ¿Desea configurar el tema de login? (S/n)"
-    mensaje17="Se le solicitará su contraseña de root para acceder a los ficheros de configuración."
+    mensaje17="Se le solicitará su contraseña de root en varias ocasiones para acceder a los ficheros de configuración."
     mensaje18="Su fondo de escritorio será clonado en la pantalla de inicio. Si desea usar una imagen distinta, cámbiela ahora. Presione enter cuando esté listo para seguir."
     mensaje19="Su imagen ha sido guardada. Ahora puede cambiar sin problemas su fondo de escritorio."
+    mensaje20="¿Desea elegir un fondo diferente para la ventana de login? Si elige no hacerlo, se utilizará la imagen por defecto. (S/n)"
 fi
 
 # Comprobar distro
@@ -350,13 +351,18 @@ function conf_lxsession(){
 function conf_slim(){
     su -c "cp $slim_config /etc/slim.conf"
     su -c "cp -r $slim_tema_dir /usr/share/slim/themes/"
-    echo "$mensaje18"
-    read
-    fondo="$(cat $casa/.config/pcmanfm/$lxsession_profile/pcmanfm.conf | grep wallpaper=)"
-    ubicacion="${fondo:10}"
-    extension="${fondo##*.}"
-    su -c "cp $ubicacion /usr/share/slim/themes/$slim_tema/background.$extension"
-    echo "$mensaje19"
+    echo "$mensaje20"
+    read respuesta
+    if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
+        then
+        echo "$mensaje18"
+        read
+        fondo="$(cat $casa/.config/pcmanfm/$lxsession_profile/pcmanfm.conf | grep wallpaper=)"
+        ubicacion="${fondo:10}"
+        extension="${fondo##*.}"
+        su -c "cp $ubicacion /usr/share/slim/themes/$slim_tema/background.$extension"
+        echo "$mensaje19"
+    fi
     if [ "$verboso" == "1" ]
         then
         echo "Se ha configurado SLiM"
@@ -414,12 +420,12 @@ conf_panel
 conf_pcmanfm
 clear
 if [ -x /usr/bin/slim ]
-    then 
+    then
     echo "$mensaje16"
     read respuesta
     respuesta=$respuesta"_"
     echo $respuesta
-    if [ "$respuesta" == "$SI"_ ]
+    if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
         then
         echo "$mensaje17"
         resslim
