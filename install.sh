@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 1.2 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 1.2.3 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 1.2 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
+echo "= WinAte 1.2.3 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -84,7 +84,7 @@ if [ "$respuesta" == "2_" ]
     mensaje14="Unable to find "
     mensaje15=". Install it and try again. Exiting..."
     mensaje16="Slim display manager has been detected. ¿Do you want to set the login theme? (Y/n)"
-    mensaje17="You will be ask for root access a few times (for compatibility, sudo is not used), ir order to write the config files."
+    mensaje17="You will be ask for root access (it uses sudo)."
     mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
     mensaje19="Your image has been saved. Now you can safely change your wallpaper."
 else
@@ -107,7 +107,7 @@ else
     mensaje14="No se pudo encontrar el programa "
     mensaje15=". Instálelo y vuelva a intentar. Saliendo..."
     mensaje16="Se ha detectado el gestor de pantalla Slim. ¿Desea configurar el tema de login? (S/n)"
-    mensaje17="Se le solicitará su contraseña de root en varias ocasiones para acceder a los ficheros de configuración."
+    mensaje17="Se le solicitará su contraseña de root para acceder a los ficheros de configuración (utiliza sudo)."
     mensaje18="Su fondo de escritorio será clonado en la pantalla de inicio. Si desea usar una imagen distinta, cámbiela ahora. Presione enter cuando esté listo para seguir."
     mensaje19="Su imagen ha sido guardada. Ahora puede cambiar sin problemas su fondo de escritorio."
     mensaje20="¿Desea elegir un fondo diferente para la ventana de login? Si elige no hacerlo, se utilizará la imagen por defecto. (S/n)"
@@ -293,12 +293,12 @@ function reslxsession(){
     }
     
 function resslim(){
-    su -c "mv /etc/slim.conf ./backup/slim/"
-    echo 'su -c "rm /etc/slim.conf && cp ./backup/slim/slim.conf /etc/slim.conf"'  >> uninstall.sh
-    echo 'su -c "rm -r /usr/share/slim/themes/WinAte8-slim"'  >> uninstall.sh
+    sudo mv "/etc/slim.conf" "./backup/slim/"
+    echo 'sudo rm /etc/slim.conf && sudo cp ./backup/slim/slim.conf /etc/slim.conf'  >> uninstall.sh
+    echo 'sudo rm -r /usr/share/slim/themes/WinAte8-slim'  >> uninstall.sh
     if [ "$verboso" == "1" ]
         then
-            echo 'su -c "rm /etc/slim.conf && cp ./backup/slim/slim.conf /etc/slim.conf"'
+            echo 'sudo rm /etc/slim.conf && sudo cp ./backup/slim/slim.conf /etc/slim.conf'
     fi
     }
 # Definir procesos individuales de configuración
@@ -349,8 +349,8 @@ function conf_lxsession(){
 
 ## Requiere acceso root
 function conf_slim(){
-    su -c "cp $slim_config /etc/slim.conf"
-    su -c "cp -r $slim_tema_dir /usr/share/slim/themes/"
+    sudo cp "$slim_config" "/etc/slim.conf"
+    sudo cp -r "$slim_tema_dir" "/usr/share/slim/themes/"
     echo "$mensaje20"
     read respuesta
     respuesta=$respuesta"_"
@@ -359,14 +359,26 @@ function conf_slim(){
         echo "$mensaje18"
         read
         fondo="$(cat $casa/.config/pcmanfm/$lxsession_profile/pcmanfm.conf | grep wallpaper=)"
-        ubicacion="${fondo:10}"
-        extension="${fondo##*.}"
-        su -c "cp $ubicacion /usr/share/slim/themes/$slim_tema/background.$extension"
-        echo "$mensaje19"
-    fi
-    if [ "$verboso" == "1" ]
+        if [ "$verboso" == "1" ]
         then
-        echo "Se ha configurado SLiM"
+        echo "$fondo"
+        fi
+        ubicacion="${fondo:10}"
+        if [ "$verboso" == "1" ]
+        then
+        echo "$ubicacion"
+        fi
+        extension="${fondo##*.}"
+        if [ "$verboso" == "1" ]
+        then
+        echo "$extension"
+        fi
+        sudo cp "$ubicacion" "/usr/share/slim/themes/$slim_tema/background.$extension"
+        if [ "$verboso" == "1" ]
+        then
+        echo "cp" "$ubicacion" "/usr/share/slim/themes/$slim_tema/background.$extension"
+        fi
+        echo "$mensaje19"
     fi
     }
     
@@ -377,6 +389,7 @@ presente lxsession
 presente compton
 presente pcmanfm
 presente openbox
+presente sudo
 comprobar backup
 comprobar backup/lxpanel
 comprobar backup/pcmanfm
