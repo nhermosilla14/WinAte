@@ -61,9 +61,11 @@ echo ""
 echo "1/2?"
 read respuesta
 respuesta=$respuesta"_"
+casa="$HOME"
 # Idiomas y localizaciones
 if [ "$respuesta" == "2_" ]
     then
+    lang="en"
     si="y"
     SI="Y"
     mensaje1="What theme do you want to setup?(default 8) 7/8"
@@ -81,7 +83,12 @@ if [ "$respuesta" == "2_" ]
     mensaje13=" found."
     mensaje14="Unable to find "
     mensaje15=". Install it and try again. Exiting..."
+    mensaje16="Slim display manager has been detected. ¿Do you want to set the login theme?"
+    mensaje17="You will be ask for root access, ir order to write the config files."
+    mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
+    mensaje19="Your image has been saved. Now you can safely change your wallpaper."
 else
+    lang="es"
     si="s"
     SI="S"
     mensaje1="Qué tema desea configurar?(opción por defecto: 8) 7/8"
@@ -99,6 +106,10 @@ else
     mensaje13=" encontrado"
     mensaje14="No se pudo encontrar el programa "
     mensaje15=". Instálelo y vuelva a intentar. Saliendo..."
+    mensaje16="Se ha detectado el gestor de pantalla Slim. ¿Desea configurar el tema de login?"
+    mensaje17="Se le solicitará su contraseña de root para acceder a los ficheros de configuración."
+    mensaje18="Su fondo de escritorio será clonado en la pantalla de inicio. Si desea usar una imagen distinta, cámbiela ahora. Presione enter cuando esté listo para seguir."
+    mensaje19="Su imagen ha sido guardada. Ahora puede cambiar sin problemas su fondo de escritorio."
 fi
 
 # Comprobar distro
@@ -169,11 +180,12 @@ if [ "$distro" == "Ubuntu" ]
     openbox_tgt="lxde-rc.xml"
     pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
     lxsession_config="$HOME/.config/lxsession/LXDE"
-    lxsession7_set="conf/desktop7_ubuntu.conf"
-    lxsession8_set="conf/desktop8_ubuntu.conf"
+    lxsession7_set="conf/lxsession/desktop7_ubuntu.conf"
+    lxsession8_set="conf/lxsession/desktop8_ubuntu.conf"
     lxsession_profile="LXDE"
-    rc7="conf/lxde-rc7.xml"
-    rc8="conf/lxde-rc8.xml"
+    slim_config=
+    rc7="conf/openbox/lxde-rc7.xml"
+    rc8="conf/openbox/lxde-rc8.xml"
 elif [ "$distro" == "Debian" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
@@ -182,11 +194,11 @@ elif [ "$distro" == "Debian" ]
     openbox_tgt="lxde-rc.xml"
     pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
     lxsession_config="$HOME/.config/lxsession/LXDE"
-    lxsession7_set="conf/desktop7_debian.conf"
-    lxsession8_set="conf/desktop8_debian.conf"
+    lxsession7_set="conf/lxsession/desktop7_debian.conf"
+    lxsession8_set="conf/lxsession/desktop8_debian.conf"
     lxsession_profile="LXDE"
-    rc7="conf/lxde-rc7.xml"
-    rc8="conf/lxde-rc8.xml"
+    rc7="conf/openbox/lxde-rc7.xml"
+    rc8="conf/openbox/lxde-rc8.xml"
 else
     echo "$mensaje10"
     exit 1
@@ -200,15 +212,21 @@ if [ $respuesta == "7_" ]
     then
     ob_tema="WinAte7-ob"
     fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
-    panel_tema="conf/panel7"
+    panel_tema="conf/lxpanel/panel7"
     lxsession_set="$lxsession7_set"
+    slim_config="conf/slim/$lang/slim7.conf"
+    slim_tema="WinAte7-slim"
+    slim_tema_dir="$lang/WinAte7-slim"
     rc="$rc7"
 else
     ob_tema="WinAte8-ob"
     fondo_tema="$HOME/.backgrounds/img0.jpg"
-    panel_tema="conf/panel8"
+    panel_tema="conf/lxpanel/panel8"
     rc="$rc8"
     lxsession_set="$lxsession8_set"
+    slim_config="conf/slim/$lang/slim8.conf"
+    slim_tema="WinAte8-slim"
+    slim_tema_dir="$lang/WinAte8-slim"
 fi
 
 # Definir comprobación de carpetas
@@ -268,10 +286,20 @@ function reslxsession(){
     echo "cp backup/lxsession/autostart $lxsession_config" >> uninstall.sh
     if [ "$verboso" == "1" ]
         then
-        echo "Falta verbosidad"
+        echo "rm $lxsession_config/*"
+        echo "cp backup/lxsession/desktop.conf $lxsession_config"
+        echo "cp backup/lxsession/autostart $lxsession_config"
     fi
     }
     
+function resslim(){
+    mv "/etc/slim.conf ./backup/slim/"
+    echo "su -c 'rm /etc/slim.conf && cp ./backup/slim/slim.conf'" "/etc/slim.conf'"  >> uninstall.sh
+    if [ "$verboso" == "1" ]
+        then
+            echo "su -c 'rm /etc/slim.conf && cp ./backup/slim/slim.conf'" "/etc/slim.conf'"
+    fi
+    }
 # Definir procesos individuales de configuración
 
 function conf_panel(){
@@ -318,6 +346,23 @@ function conf_lxsession(){
     fi
     }
 
+## Requiere acceso root
+function conf_slim(){
+    cp "$slim_config" /etc/slim.conf
+    cp -r "$slim_tema_dir" "/usr/share/slim/themes/" 
+    echo "$mensaje18"
+    read
+    fondo="$(cat $casa/.config/pcmanfm/pcmanfm.conf | grep wallpaper=)"
+    ubicacion="${fondo:10}"
+    extension="${fondo##*.}"
+    ln -s "$ubicacion" "/usr/share/slim/themes/$slim_tema/background."$extension
+    echo "$mensaje19"
+    if [ "$verboso" == "1" ]
+        then
+        echo "Falta verbosidad"
+    fi
+    }
+    
 # Comprobación de carpetas de destino
 
 presente lxpanel
@@ -330,6 +375,7 @@ comprobar backup/lxpanel
 comprobar backup/pcmanfm
 comprobar backup/openbox
 comprobar backup/lxsession
+comprobar backup/slim
 comprobar ~/.fonts
 comprobar ~/.themes
 comprobar ~/.icons
@@ -376,8 +422,20 @@ echo "rm -r ~/.themes/Win2-8-fixed" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
 echo "echo \"Reinicie su equipo. | Reboot your pc.\"" >> uninstall.sh
 echo "lxsession-logout" >> uninstall.sh
-chmod +x uninstall.sh >> uninstall.sh
+chmod +x uninstall.sh
 clear
+if [ -x /usr/bin/slim ]
+    then 
+    echo "$mensaje 16"
+    read respuesta
+    respuesta=$respuesta"_"
+    if [ $respuesta == $SI ]
+        then
+        echo "$mensaje17"
+        resslim
+        su -c conf_slim
+    fi
+fi    
 echo "$mensaje4"
 echo "$mensaje5"
 read
