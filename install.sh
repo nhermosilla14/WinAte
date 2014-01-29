@@ -373,7 +373,7 @@ function conf_slim(){
         then
         echo "$extension"
         fi
-        sudo rm "/usr/share/slim/themes/$slim_tema/background.*"
+        sudo rm "/usr/share/slim/themes/$slim_tema/background.png"
         sudo cp "$ubicacion" "/usr/share/slim/themes/"$slim_tema"/background."$extension
         if [ "$verboso" == "1" ]
         then
