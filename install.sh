@@ -411,14 +411,15 @@ if [ "$verboso" == "1" ]
 fi
 # Definir copia de archivos
 
-cp -r ./WinAte-icons ~/.icons/
+sudo cp -r ./WinAte-icons /usr/share/icons/
 sudo cp -r ./WinAte7-gtk /usr/share/themes/
 sudo cp -r ./WinAte8-gtk /usr/share/themes/
-cp -r ./aero-drop ~/.icons/
-cp -r ./win8 ~/.icons/
+sudo cp -r ./aero-drop /usr/share/icons/
+sudo cp -r ./win8 /usr/share/icons/
 cp -r $ob_tema ~/.themes/
-cp fonts/* ~/.fonts/
-cp backgrounds/* ~/.backgrounds/
+sudo cp fonts/* /usr/share/fonts/
+sudo mkdir /usr/share/WinAte
+sudo cp backgrounds/* /usr/share/WinAte/
 echo '#!/bin/bash' > uninstall.sh
 
 if [ "$verboso" == "1" ]
@@ -447,14 +448,15 @@ if [ -x /usr/bin/slim ]
         conf_slim
     fi
 fi
+echo "Si se le pide confirmación, acepte. | If you're asked for confirmation, please accept." >> uninstall.sh
 echo "rm -r backup" >> uninstall.sh
-echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
-echo "rm -r ~/.icons/win8" >> uninstall.sh
-echo "rm -r ~/.icons/WinAte-icons" >> uninstall.sh
+echo "sudo rm -r /usr/share/icons/aero-drop" >> uninstall.sh
+echo "sudo rm -r /usr/share/icons/win8" >> uninstall.sh
+echo "sudo rm -r /usr/share/icons/WinAte-icons" >> uninstall.sh
 echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
 echo "sudo rm -r /usr/share/themes/WinAte7-gtk" >> uninstall.sh
 echo "sudo rm -r /usr/share/themes/WinAte8-gtk" >> uninstall.sh
-echo "rm ~/.backgrounds/img*" >> uninstall.sh
+echo "sudo rm -r /usr/share/WinAte" >> uninstall.sh
 echo "echo \"Reinicie su equipo. | Reboot your pc.\"" >> uninstall.sh
 chmod +x uninstall.sh
 echo "$mensaje4"
