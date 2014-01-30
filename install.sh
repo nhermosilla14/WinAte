@@ -411,9 +411,9 @@ if [ "$verboso" == "1" ]
 fi
 # Definir copia de archivos
 
-cp -r ./Win2-7 ~/.icons/
-cp -r ./Win2-7-fixed ~/.themes/
-cp -r ./Win2-8-fixed ~/.themes/
+cp -r ./WinAte-icons ~/.icons/
+sudo cp -r ./WinAte7-gtk /usr/share/themes/
+sudo cp -r ./WinAte8-gtk /usr/share/themes/
 cp -r ./aero-drop ~/.icons/
 cp -r ./win8 ~/.icons/
 cp -r $ob_tema ~/.themes/
@@ -450,10 +450,10 @@ fi
 echo "rm -r backup" >> uninstall.sh
 echo "rm -r ~/.icons/aero-drop" >> uninstall.sh
 echo "rm -r ~/.icons/win8" >> uninstall.sh
-echo "rm -r ~/.icons/Win2-7" >> uninstall.sh
+echo "rm -r ~/.icons/WinAte-icons" >> uninstall.sh
 echo "rm -r ~/.themes/$ob_tema" >> uninstall.sh
-echo "rm -r ~/.themes/Win2-7-fixed" >> uninstall.sh
-echo "rm -r ~/.themes/Win2-8-fixed" >> uninstall.sh
+echo "sudo rm -r /usr/share/themes/WinAte7-gtk" >> uninstall.sh
+echo "sudo rm -r /usr/share/themes/WinAte8-gtk" >> uninstall.sh
 echo "rm ~/.backgrounds/img*" >> uninstall.sh
 echo "echo \"Reinicie su equipo. | Reboot your pc.\"" >> uninstall.sh
 chmod +x uninstall.sh

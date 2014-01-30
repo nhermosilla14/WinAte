@@ -1,12 +1,12 @@
 [Desktop Entry]
-Name=Win2-7(Pixmap)
+Name=WinAte7-gtk
 Type=X-GNOME-Metatheme
 Comment=Inspired on Win2-7 but without libia-ora engine
 
 [X-GNOME-Metatheme]
-GtkTheme=Win2-7-fixed
-MetacityTheme=Win2-7-fixed
-IconTheme=Win2-7
+GtkTheme=WinAte7-gtk
+MetacityTheme=WinAte7-gtk
+IconTheme=WinAte-icons
 CursorTheme=aero-drop
 CursorSize=18
 #BackgroundImage=/usr/share/backgrounds/Win2-7.jpg
