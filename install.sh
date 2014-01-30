@@ -448,7 +448,7 @@ if [ -x /usr/bin/slim ]
         conf_slim
     fi
 fi
-echo "Si se le pide confirmación, acepte. | If you're asked for confirmation, please accept." >> uninstall.sh
+echo "echo \"Si se le pide confirmación, acepte. | If you're asked for confirmation, please accept.\"" >> uninstall.sh
 echo "rm -r backup" >> uninstall.sh
 echo "sudo rm -r /usr/share/icons/aero-drop" >> uninstall.sh
 echo "sudo rm -r /usr/share/icons/win8" >> uninstall.sh
