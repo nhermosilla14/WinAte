@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 1.2.3 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 1.3 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 1.2.3 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
+echo "= WinAte 1.3 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -211,7 +211,7 @@ respuesta=$respuesta1"_"
 if [ $respuesta == "7_" ]
     then
     ob_tema="WinAte7-ob"
-    fondo_tema="$HOME/.backgrounds/Win2-7Pixmap.jpg"
+    fondo_tema="/usr/share/WinAte/Win2-7Pixmap.jpg"
     panel_tema="conf/lxpanel/panel7"
     lxsession_set="$lxsession7_set"
     slim_config="conf/slim/$lang/slim7.conf"
@@ -220,7 +220,7 @@ if [ $respuesta == "7_" ]
     rc="$rc7"
 else
     ob_tema="WinAte8-ob"
-    fondo_tema="$HOME/.backgrounds/img0.jpg"
+    fondo_tema="/usr/share/WinAte/img0.jpg"
     panel_tema="conf/lxpanel/panel8"
     rc="$rc8"
     lxsession_set="$lxsession8_set"
@@ -404,7 +404,7 @@ comprobar ~/.backgrounds
 comprobar ~/.config/openbox/
 comprobar ~/.config/lxpanel
 comprobar ~/.config/pcmanfm
-comprobar ~/.config/lxsession       
+comprobar ~/.config/lxsession
 if [ "$verboso" == "1" ]
         then
         echo "Falta verbosidad"
