@@ -202,7 +202,7 @@ elif [ "$distro" == "Debian" ]
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
-elif [ "$distro" == "Debian" ]
+elif [ "$distro" == "Arch" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
     openbox_config="$HOME/.config/openbox"
