@@ -235,8 +235,8 @@ if [ $respuesta == "7_" ]
     fondo_tema="/usr/share/WinAte/Win2-7Pixmap.jpg"
     panel_tema="conf/lxpanel/panel7"
     lxsession_set="$lxsession7_set"
-    slim_config="conf/slim/$lang/slim7.conf"
-    slim_tema="conf/slim/$lang/$slim7"
+    slim_config="conf/slim/$lang/$slim7"
+    slim_tema="WinAte7-slim"
     slim_tema_dir="$lang/WinAte7-slim"
     rc="$rc7"
 else
@@ -245,8 +245,8 @@ else
     panel_tema="conf/lxpanel/panel8"
     rc="$rc8"
     lxsession_set="$lxsession8_set"
-    slim_config="conf/slim/$lang/slim8.conf"
-    slim_tema="conf/slim/$lang/$slim8"
+    slim_config="conf/slim/$lang/$slim8"
+    slim_tema="WinAte8-slim"
     slim_tema_dir="$lang/WinAte8-slim"
 fi
 
