@@ -368,6 +368,7 @@ function conf_lxsession(){
     if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
         then
         echo "@compton -bcCfF -i 0.9 -e 0.85 -D 6" >> "$lxsession_config/autostart"
+    fi
     if [ "$verboso" == "1" ]
         then
         echo "Falta verbosidad"
