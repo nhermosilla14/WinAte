@@ -35,7 +35,7 @@ Plugin {
 Plugin {
     type = menu
     Config {
-        image=~/usr/share/icons/WinAte-icons/extras/start-here/AteStart.png
+        image=/usr/share/icons/WinAte-icons/extras/start-here/AteStart.png
         system {
         }
         separator {
