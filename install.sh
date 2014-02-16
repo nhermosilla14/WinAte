@@ -87,6 +87,8 @@ if [ "$respuesta" == "2_" ]
     mensaje17="You will be ask for root access (it uses sudo)."
     mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
     mensaje19="Your image has been saved. Now you can safely change your wallpaper."
+    mensaje20="Do you want to set the login background? If you don't, default image will be used. (Y/n)"
+    mensaje21="Do you want to enable transparent windows? (Y/n)"
 else
     lang="es"
     si="s"
@@ -111,6 +113,7 @@ else
     mensaje18="Su fondo de escritorio será clonado en la pantalla de inicio. Si desea usar una imagen distinta, cámbiela ahora. Presione enter cuando esté listo para seguir."
     mensaje19="Su imagen ha sido guardada. Ahora puede cambiar sin problemas su fondo de escritorio."
     mensaje20="¿Desea elegir un fondo diferente para la ventana de login? Si elige no hacerlo, se utilizará la imagen por defecto. (S/n)"
+    mensaje21="¿Desea habilitar las transparencias de ventana?(S/n)"
 fi
 
 # Comprobar distro
@@ -196,6 +199,18 @@ elif [ "$distro" == "Debian" ]
     lxsession_config="$HOME/.config/lxsession/LXDE"
     lxsession7_set="conf/lxsession/desktop7_debian.conf"
     lxsession8_set="conf/lxsession/desktop8_debian.conf"
+    lxsession_profile="LXDE"
+    rc7="conf/openbox/lxde-rc7.xml"
+    rc8="conf/openbox/lxde-rc8.xml"
+elif [ "$distro" == "Debian" ]
+    then
+    lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
+    openbox_config="$HOME/.config/openbox"
+    openbox_tgt="lxde-rc.xml"
+    pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
+    lxsession_config="$HOME/.config/lxsession/LXDE"
+    lxsession7_set="conf/lxsession/desktop7_arch.conf"
+    lxsession8_set="conf/lxsession/desktop8_arch.conf"
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
@@ -341,6 +356,12 @@ function conf_lxsession(){
     #sed -e s/"$linea_ori_0"/"$linea_fin_0"/g "$lxsession_config/" > temp
     cp "$lxsession_set" "$lxsession_config/desktop.conf"
     echo "@pcmanfm --desktop --profile $lxsession_profile" >> "$lxsession_config/autostart"
+    echo "$mensaje21"
+    read respuesta
+    respuesta=$respuesta"_"
+    if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
+        then
+        echo "@compton -bcCfF -i 0.9 -e 0.85 -D 6" >> "$lxsession_config/autostart"
     if [ "$verboso" == "1" ]
         then
         echo "Falta verbosidad"
