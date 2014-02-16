@@ -189,6 +189,8 @@ if [ "$distro" == "Ubuntu" ]
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
+    slim7="slim_deb7.conf"
+    slim8="slim_deb8.conf"
 elif [ "$distro" == "Debian" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
@@ -202,6 +204,8 @@ elif [ "$distro" == "Debian" ]
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
+    slim7="slim_deb7.conf"
+    slim8="slim_deb8.conf"
 elif [ "$distro" == "Arch" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
@@ -214,6 +218,8 @@ elif [ "$distro" == "Arch" ]
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
+    slim7="slim_arch7.conf"
+    slim8="slim_arch8.conf"
 else
     echo "$mensaje10"
     exit 1
@@ -230,7 +236,7 @@ if [ $respuesta == "7_" ]
     panel_tema="conf/lxpanel/panel7"
     lxsession_set="$lxsession7_set"
     slim_config="conf/slim/$lang/slim7.conf"
-    slim_tema="WinAte7-slim"
+    slim_tema="conf/slim/$lang/$slim7"
     slim_tema_dir="$lang/WinAte7-slim"
     rc="$rc7"
 else
@@ -240,7 +246,7 @@ else
     rc="$rc8"
     lxsession_set="$lxsession8_set"
     slim_config="conf/slim/$lang/slim8.conf"
-    slim_tema="WinAte8-slim"
+    slim_tema="conf/slim/$lang/$slim8"
     slim_tema_dir="$lang/WinAte8-slim"
 fi
 
