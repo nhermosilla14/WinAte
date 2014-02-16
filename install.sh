@@ -126,7 +126,7 @@ argumentos=$1"_"
 if [ "$argumentos" == "--force_" ]
     then
     respuesta=$si
-    echo "$mensaje11 ( Debian | Ubuntu )"
+    echo "$mensaje11 ( Debian | Ubuntu | Arch )"
     read distro
 else
     echo "$mensaje8 $distro$mensaje9"
