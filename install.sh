@@ -431,8 +431,12 @@ comprobar ~/.icons
 comprobar ~/.backgrounds
 comprobar ~/.config/openbox/
 comprobar ~/.config/lxpanel
+comprobar ~/.config/lxpanel/$lxsession_profile
+comprobar ~/.config/lxpanel/$lxsession_profile/panels
 comprobar ~/.config/pcmanfm
+comprobar ~/.config/pcmanfm/$lxsession_profile
 comprobar ~/.config/lxsession
+comprobar ~/.config/lxsession/$lxsession_profile
 if [ "$verboso" == "1" ]
         then
         echo "Falta verbosidad"
