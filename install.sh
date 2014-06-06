@@ -27,7 +27,7 @@
 
 echo "==================================================================="
 echo "=                                                                 ="
-echo "= WinAte 1.3 - Windows 7/8 (r) Transformation Pack for Debian/LXDE="
+echo "= WinAte 1.3.5 - Windows7/8(r) Transformation Pack for Debian/LXDE="
 echo "=                                                                 ="
 echo "=  Copyright 2014 Nicolás Hermosilla P. - nhermosilla14@gmail.com ="
 echo "=                                                                 ="
@@ -53,15 +53,16 @@ echo ""
 echo "Presione enter para continuar... //Press enter to continue..."
 read
 clear
-echo "Elija idioma para instalar: | Choose language to install: "
+echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation:"
 echo ""
 echo "1)Español"
 echo "2)English"
+echo "3)Français"
 echo ""
-echo "1/2?"
+echo "1/2/3?"
 read respuesta
 respuesta=$respuesta"_"
-casa="$HOME"
+casa="$HOME" # Solo para debugging
 # Idiomas y localizaciones
 if [ "$respuesta" == "2_" ]
     then
@@ -89,7 +90,37 @@ if [ "$respuesta" == "2_" ]
     mensaje19="Your image has been saved. Now you can safely change your wallpaper."
     mensaje20="Do you want to set the login background? If you don't, default image will be used. (Y/n)"
     mensaje21="Do you want to enable transparent windows? (Y/n)"
-else
+elif [ "$respuesta" == "3_" ]
+	then
+#
+# Translation to french by François Foyer
+# francoisfoyer@hotmail.fr
+# 
+	lang="fr"
+    si="o"
+    SI="O"
+    mensaje1="Quel thème voulez-vous installer?(par défaut 8) 7/8"
+    mensaje2="Voulez-vous également installer les fonds d\'écran Windows? O/n"
+    mensaje3="Sauvegarde de la configuration effectuée"
+    mensaje4="Installation terminée. Veuillez redémarrer le système pour appliquer les changements."
+    mensaje5="Tapez Enter pour vous déconnecter."
+    mensaje6="Répertoire créé"
+    mensaje7="Répertoire existant"
+    mensaje8="Votre distribution semble être"
+    mensaje9=". est-ce exacte? (O/n)"
+    mensaje10="L\'arborescence détectée ne correspond pas ou la distribution n\'est pas compatible. Pour forcer l\'installation, lancez le script en mode forcé \"--force\". Arrêt du script..."
+    mensaje11="Entrez votre distribution :"
+    mensaje12="L\'installeur va maintenant se fermer."
+    mensaje13=" trouvé."
+    mensaje14="Impossible de trouver "
+    mensaje15=". Installez le puis relancez l\'installation. Arrêt du script..."
+    mensaje16="Le gestionnaire de connexion Slim a été détecté. Voulez vous modifier le thème de la page de connexion? (O/n)"
+    mensaje17="Un accès administrateur vous sera demandé (utilisation de sudo)."
+    mensaje18="Votre fond d\'écran va être cloné et utilisé pour l\'écran de connexion. Si vous souhaitez changer l\'image, appliquez là à votre bureau actuel. Tapez Enter pour continuer."
+    mensaje19="Votre image a été sauvegardée. Vous pouvez maintenant changer votre fond d\'écran."
+    mensaje20="Voulez-vous redéfinir le fond d\'écran de la page de connexion? Si vous choisissez non(n), l\'image par défaut sera utilisée. (O/n)"
+    mensaje21="voulez-vous autoriser les fenêtres transparentes? (O/n)"
+else 
     lang="es"
     si="s"
     SI="S"
@@ -367,6 +398,12 @@ function conf_lxsession(){
     respuesta=$respuesta"_"
     if [ "$respuesta" == "$SI"_ ] || [ "$respuesta" == "$si"_ ]
         then
+        if [ -x /usr/bin/compton ]
+			then
+			echo "$1$mensaje13"
+			else
+			echo "$mensaje14'compton.'"
+		fi
         echo "@compton -bcCfF -i 0.9 -e 0.85 -D 6" >> "$lxsession_config/autostart"
     fi
     if [ "$verboso" == "1" ]
@@ -415,7 +452,6 @@ function conf_slim(){
 
 presente lxpanel
 presente lxsession
-presente compton
 presente pcmanfm
 presente openbox
 presente sudo
@@ -456,7 +492,7 @@ echo '#!/bin/bash' > uninstall.sh
 
 if [ "$verboso" == "1" ]
         then
-        echo "Falta verbosidad"
+        echo "Copia de archivos concluida. Iniciando configuraciones."
 fi
 
 reslxsession
