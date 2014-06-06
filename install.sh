@@ -268,7 +268,7 @@ if [ $respuesta == "7_" ]
     lxsession_set="$lxsession7_set"
     slim_config="conf/slim/$lang/$slim7"
     slim_tema="WinAte7-slim"
-    slim_tema_dir="$lang/WinAte7-slim"
+    slim_tema_dir="slim/$lang/WinAte7-slim"
     rc="$rc7"
 else
     ob_tema="WinAte8-ob"
@@ -278,7 +278,7 @@ else
     lxsession_set="$lxsession8_set"
     slim_config="conf/slim/$lang/$slim8"
     slim_tema="WinAte8-slim"
-    slim_tema_dir="$lang/WinAte8-slim"
+    slim_tema_dir="slim/$lang/WinAte8-slim"
 fi
 
 # Definir comprobación de carpetas
