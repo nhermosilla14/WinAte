@@ -145,11 +145,11 @@ elif [ "$respuesta" == "4_" ]
     mensaje13=" znaleziono."
     mensaje14="Nie można odszukać "
     mensaje15=". Zainstaluj i spróbuj ponownie. Kończenie..."
-    mensaje16="Slim display manager has been detected. ¿Do you want to set the login theme? (T/n)"
+    mensaje16="Wykryto Slim display manager. Czy chcesz zmienić wygląd? (T/n)"
     mensaje17="Zostaniesz poproszony o dostęp administracyjny (sudo)."
-    mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
-    mensaje19="Your image has been saved. Now you can safely change your wallpaper."
-    mensaje20="Do you want to set the login background? If you don't, default image will be used. (T/n)"
+    mensaje18="Twoja tapeta zostanie skopiowana jako login screen. Jeśli chcesz inny obrazek ustaw go jako tapetę w tej chwili. Naciśnij enter jak tylko będziesz gotowy aby kontynuować."
+    mensaje19="Twój obrazek został skopiowane. Teraz możesz ponownie zmienić swoją tapetę."
+    mensaje20="Czy chcesz zmienić tło okna logowania? Jeśli nie zostanie użyty domyślny obrazek. (T/n)"
     mensaje21="Czy chcesz włączyć transparentne okna? (T/n)"
 else 
     lang="es"
@@ -184,11 +184,17 @@ distro=$(cat /etc/*-release | grep '^NAME=')
 distro=${distro:6}
 distro="$(cut -d ' ' -f 1 <<< "$distro")"
 distro="$(echo $distro | sed -e 's/\"$//')"
+
+if [ -z "$distro" ]
+    then
+    distro="$(cat /etc/*-release | grep CentOS | head -n 1 | awk '{print $1}')"
+fi
+
 argumentos=$1"_"
 if [ "$argumentos" == "--force_" ]
     then
     respuesta=$si
-    echo "$mensaje11 ( Debian | Ubuntu | Arch )"
+    echo "$mensaje11 ( Debian | Ubuntu | Arch | CentOS )"
     read distro
 else
     echo "$mensaje8 $distro$mensaje9"
@@ -254,6 +260,21 @@ if [ "$distro" == "Ubuntu" ]
     slim7="slim_deb7.conf"
     slim8="slim_deb8.conf"
 elif [ "$distro" == "Debian" ]
+    then
+    lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
+    #panel="conf/panel_debian"
+    openbox_config="$HOME/.config/openbox"
+    openbox_tgt="lxde-rc.xml"
+    pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
+    lxsession_config="$HOME/.config/lxsession/LXDE"
+    lxsession7_set="conf/lxsession/desktop7_debian.conf"
+    lxsession8_set="conf/lxsession/desktop8_debian.conf"
+    lxsession_profile="LXDE"
+    rc7="conf/openbox/lxde-rc7.xml"
+    rc8="conf/openbox/lxde-rc8.xml"
+    slim7="slim_deb7.conf"
+    slim8="slim_deb8.conf"
+elif [ "$distro" == "CentOS" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
     #panel="conf/panel_debian"
