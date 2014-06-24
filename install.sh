@@ -53,13 +53,14 @@ echo ""
 echo "Presione enter para continuar... //Press enter to continue..."
 read
 clear
-echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation:"
+echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation: | Wybierz język:"
 echo ""
 echo "1)Español"
 echo "2)English"
 echo "3)Français"
+echo "4)Polski"
 echo ""
-echo "1/2/3?"
+echo "1/2/3/4?"
 read respuesta
 respuesta=$respuesta"_"
 casa="$HOME" # Solo para debugging
@@ -120,6 +121,36 @@ elif [ "$respuesta" == "3_" ]
     mensaje19="Votre image a été sauvegardée. Vous pouvez maintenant changer votre fond d\'écran."
     mensaje20="Voulez-vous redéfinir le fond d\'écran de la page de connexion? Si vous choisissez non(n), l\'image par défaut sera utilisée. (O/n)"
     mensaje21="voulez-vous autoriser les fenêtres transparentes? (O/n)"
+elif [ "$respuesta" == "4_" ]
+	then
+#
+# Translation to polish by Grzegorz Wieczorek
+# https://github.com/grzew/
+# 
+    lang="pl"
+    si="t"
+    SI="T"
+    mensaje1="Wybierz wygląd (domyślnie 8) 7/8"
+    mensaje2="Czy ustawić domyślną tapetę? T/n"
+    mensaje3="Wykonano kopię konfiguracji"
+    mensaje4="Instalacja zakończona. Wykonaj restart aby zobaczyć zmiany."
+    mensaje5="Wciśnij enter aby otworzyć ekran wylogowywania."
+    mensaje6="Stworzono katalog"
+    mensaje7="Znaleziono katalog"
+    mensaje8="Twoja dystrybucja to"
+    mensaje9=". Poprawnie? (T/n)"
+    mensaje10="Wystąpił problem ze strukturą katalogów. Aby wymusić instalację użyj \"--force\". Kończenie..."
+    mensaje11="Wybierz swoją dystrybucję:"
+    mensaje12="Instalator zakończył pracę."
+    mensaje13=" znaleziono."
+    mensaje14="Nie można odszukać "
+    mensaje15=". Zainstaluj i spróbuj ponownie. Kończenie..."
+    mensaje16="Slim display manager has been detected. ¿Do you want to set the login theme? (T/n)"
+    mensaje17="Zostaniesz poproszony o dostęp administracyjny (sudo)."
+    mensaje18="Your desktop wallpaper will be cloned to the login screen. If you want to set up a different image, set it to your desktop now. Press enter when you are ready to continue."
+    mensaje19="Your image has been saved. Now you can safely change your wallpaper."
+    mensaje20="Do you want to set the login background? If you don't, default image will be used. (T/n)"
+    mensaje21="Czy chcesz włączyć transparentne okna? (T/n)"
 else 
     lang="es"
     si="s"
