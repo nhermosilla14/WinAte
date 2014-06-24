@@ -209,7 +209,7 @@ if [ "$argumentos" == "--verbose_" ]
     verboso="0"
 fi
 
-if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
+if [ "$respuesta" == "$si" ] || [ "$respuesta" == "$SI" ]
     then
     estado="ok"
 else
