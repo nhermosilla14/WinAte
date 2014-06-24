@@ -53,13 +53,14 @@ echo ""
 echo "Presione enter para continuar... //Press enter to continue..."
 read
 clear
-echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation:"
+echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation: | Wybierz język:"
 echo ""
 echo "1)Español"
 echo "2)English"
 echo "3)Français"
+echo "4)Polski"
 echo ""
-echo "1/2/3?"
+echo "1/2/3/4?"
 read respuesta
 respuesta=$respuesta"_"
 casa="$HOME" # Solo para debugging
@@ -120,6 +121,36 @@ elif [ "$respuesta" == "3_" ]
     mensaje19="Votre image a été sauvegardée. Vous pouvez maintenant changer votre fond d\'écran."
     mensaje20="Voulez-vous redéfinir le fond d\'écran de la page de connexion? Si vous choisissez non(n), l\'image par défaut sera utilisée. (O/n)"
     mensaje21="voulez-vous autoriser les fenêtres transparentes? (O/n)"
+elif [ "$respuesta" == "4_" ]
+	then
+#
+# Translation to polish by Grzegorz Wieczorek
+# https://github.com/grzew/
+# 
+    lang="pl"
+    si="t"
+    SI="T"
+    mensaje1="Wybierz wygląd (domyślnie 8) 7/8"
+    mensaje2="Czy ustawić domyślną tapetę? T/n"
+    mensaje3="Wykonano kopię konfiguracji"
+    mensaje4="Instalacja zakończona. Wykonaj restart aby zobaczyć zmiany."
+    mensaje5="Wciśnij enter aby otworzyć ekran wylogowywania."
+    mensaje6="Stworzono katalog"
+    mensaje7="Znaleziono katalog"
+    mensaje8="Twoja dystrybucja to"
+    mensaje9=". Poprawnie? (T/n)"
+    mensaje10="Wystąpił problem ze strukturą katalogów. Aby wymusić instalację użyj \"--force\". Kończenie..."
+    mensaje11="Wybierz swoją dystrybucję:"
+    mensaje12="Instalator zakończył pracę."
+    mensaje13=" znaleziono."
+    mensaje14="Nie można odszukać "
+    mensaje15=". Zainstaluj i spróbuj ponownie. Kończenie..."
+    mensaje16="Wykryto Slim display manager. Czy chcesz zmienić wygląd? (T/n)"
+    mensaje17="Zostaniesz poproszony o dostęp administracyjny (sudo)."
+    mensaje18="Twoja tapeta zostanie skopiowana jako login screen. Jeśli chcesz inny obrazek ustaw go jako tapetę w tej chwili. Naciśnij enter jak tylko będziesz gotowy aby kontynuować."
+    mensaje19="Twój obrazek został skopiowane. Teraz możesz ponownie zmienić swoją tapetę."
+    mensaje20="Czy chcesz zmienić tło okna logowania? Jeśli nie zostanie użyty domyślny obrazek. (T/n)"
+    mensaje21="Czy chcesz włączyć transparentne okna? (T/n)"
 else 
     lang="es"
     si="s"
@@ -153,11 +184,17 @@ distro=$(cat /etc/*-release | grep '^NAME=')
 distro=${distro:6}
 distro="$(cut -d ' ' -f 1 <<< "$distro")"
 distro="$(echo $distro | sed -e 's/\"$//')"
+
+if [ -z "$distro" ]
+    then
+    distro="$(cat /etc/*-release | grep CentOS | head -n 1 | awk '{print $1}')"
+fi
+
 argumentos=$1"_"
 if [ "$argumentos" == "--force_" ]
     then
     respuesta=$si
-    echo "$mensaje11 ( Debian | Ubuntu | Arch )"
+    echo "$mensaje11 ( Debian | Ubuntu | Arch | CentOS )"
     read distro
 else
     echo "$mensaje8 $distro$mensaje9"
@@ -172,7 +209,7 @@ if [ "$argumentos" == "--verbose_" ]
     verboso="0"
 fi
 
-if [ "$respuesta" == "$si" ] || [ "$respuesta" == "SI" ]
+if [ "$respuesta" == "$si" ] || [ "$respuesta" == "$SI" ]
     then
     estado="ok"
 else
@@ -237,6 +274,21 @@ elif [ "$distro" == "Debian" ]
     rc8="conf/openbox/lxde-rc8.xml"
     slim7="slim_deb7.conf"
     slim8="slim_deb8.conf"
+elif [ "$distro" == "CentOS" ]
+    then
+    lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
+    #panel="conf/panel_debian"
+    openbox_config="$HOME/.config/openbox"
+    openbox_tgt="lxde-rc.xml"
+    pcmanfm_config="$HOME/.config/pcmanfm/LXDE"
+    lxsession_config="$HOME/.config/lxsession/LXDE"
+    lxsession7_set="conf/lxsession/desktop7_debian.conf"
+    lxsession8_set="conf/lxsession/desktop8_debian.conf"
+    lxsession_profile="LXDE"
+    rc7="conf/openbox/lxde-rc7.xml"
+    rc8="conf/openbox/lxde-rc8.xml"
+    #slim7="slim_deb7.conf"
+    #slim8="slim_deb8.conf"
 elif [ "$distro" == "Arch" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
