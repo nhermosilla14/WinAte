@@ -287,8 +287,8 @@ elif [ "$distro" == "CentOS" ]
     lxsession_profile="LXDE"
     rc7="conf/openbox/lxde-rc7.xml"
     rc8="conf/openbox/lxde-rc8.xml"
-    slim7="slim_deb7.conf"
-    slim8="slim_deb8.conf"
+    #slim7="slim_deb7.conf"
+    #slim8="slim_deb8.conf"
 elif [ "$distro" == "Arch" ]
     then
     lxpanel_config="$HOME/.config/lxpanel/LXDE/panels"
