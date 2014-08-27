@@ -53,14 +53,15 @@ echo ""
 echo "Presione enter para continuar... //Press enter to continue..."
 read
 clear
-echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation: | Wybierz język:"
+echo "Elija idioma para instalar: | Choose language to install: | Choisir la langue d'installation: | Wybierz język: | Wählen Sie Ihre Sprache:"
 echo ""
 echo "1)Español"
 echo "2)English"
 echo "3)Français"
 echo "4)Polski"
+echo "5)Deutsch"
 echo ""
-echo "1/2/3/4?"
+echo "1/2/3/4/5?"
 read respuesta
 respuesta=$respuesta"_"
 casa="$HOME" # Solo para debugging
