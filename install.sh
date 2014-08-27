@@ -152,7 +152,7 @@ elif [ "$respuesta" == "4_" ]
     mensaje19="Twój obrazek został skopiowane. Teraz możesz ponownie zmienić swoją tapetę."
     mensaje20="Czy chcesz zmienić tło okna logowania? Jeśli nie zostanie użyty domyślny obrazek. (T/n)"
     mensaje21="Czy chcesz włączyć transparentne okna? (T/n)"
-elif [ "$respuesta" == "5_"]
+elif [ "$respuesta" == "5_" ]
 	
 	# Translation by dom <webmaster@eastlan.de>
 	
