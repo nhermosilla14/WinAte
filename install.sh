@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  WinAte 1.3 - Pack de transformación de apariencia para GNU/Linux
+#  WinAte 1.3.5 - Pack de transformación de apariencia para GNU/Linux
 #  
 #  Copyright 2014 Nicolás Hermosilla P. <nhermosilla14@gmail.com>
 #  
@@ -151,6 +151,35 @@ elif [ "$respuesta" == "4_" ]
     mensaje19="Twój obrazek został skopiowane. Teraz możesz ponownie zmienić swoją tapetę."
     mensaje20="Czy chcesz zmienić tło okna logowania? Jeśli nie zostanie użyty domyślny obrazek. (T/n)"
     mensaje21="Czy chcesz włączyć transparentne okna? (T/n)"
+elif [ "$respuesta" == "5_"]
+	
+	# Translation by dom <webmaster@eastlan.de>
+	
+	then
+	lang="de"
+	si="y"
+	SI="Y"
+	mensaje1="Welches Layout soll installiert werden? (Standard 8) 7/8"
+    mensaje2="Sollen die Hintergründe mit installiert werden? Y/n"
+    mensaje3="Einrichtung von backed-up"
+    mensaje4="Installation beendet. Neustart um Änderungen zu übernehmen."
+    mensaje5="Drücke ENTER um das Log-Out-Fenster zu öffnen."
+    mensaje6="Verzeichnis erstellt"
+    mensaje7="Verzeichnis gefunden"
+    mensaje8="Die Distribution scheint folgende zu sein"
+    mensaje9=". Ist das richtig? (Y/n)"
+    mensaje10="System-Verzeichnisse stimmen nicht oder die Distribution wird nicht unterstützt. Um die Installation zu erzwingen, benutze das Script mit \"--force\". Verlassen..."
+    mensaje11="Welche Distribution:"
+    mensaje12="Der Installer muss jetzt beendet werden."
+    mensaje13=" gefunden."
+    mensaje14="Kann nicht gefunden werden "
+    mensaje15=". Installieren Sie es und versuchen Sie es erneut. Verlassen..."
+    mensaje16="Slim Display Manager wurde erkannt. Möchten Sie das Login-Layout einstellen? (Y/n)"
+    mensaje17="Sie werden nach den Root-Zugriffen gefragt werden (es verwendet sudo)."
+    mensaje18="Ihr Desktop Hintergrundbild wird zum Login-Bildschirm geklont werden. Wenn Sie die Einrichtung ein anderen Bildes möchten, setzen Sie es jetzt als Desktophintergrund ein. Drücken Sie die Eingabetaste, wenn Sie bereit sind fortzufahren."
+    mensaje19="Ihr Bild wurde gespeichert. Jetzt können Sie problemlos Ihren Hintergrundändern."
+    mensaje20="Möchten Sie den Login-Hintergrund festlegen? Wenn Sie das nicht möchten, wird das Standardbild verwendet. (Y/n)"
+    mensaje21="Wollen Sie transparente Fenster aktivieren? (Y/n)"
 else 
     lang="es"
     si="s"
