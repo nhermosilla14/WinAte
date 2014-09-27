@@ -21,7 +21,7 @@ Global {
     usefontsize=1
     background=0
     backgroundfile=/usr/share/lxpanel/images/background.png
-    iconsize=40
+    iconsize=33
     loglevel=2
 }
 
