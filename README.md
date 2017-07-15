@@ -1,3 +1,10 @@
+#PROJECT FINISHED
+
+Since I don't have the time to start working again, and several things have changed in gtk3 and lxde, I won't be giving any further support to any of this. Thanks to all users, I hope to be back soon with something like this ;)
+
+.........................................................................................................
+
+
 My goal is to provide an easy way to migrate from Windows 7/8 to GNU/Linux, without having a high end pc. Everything is done using the less resource-intensive software available, always trying to keep as much functionality as possible.
 It is meant to be used in LXDE/Openbox, so don't expect to have neither rounded corners nor exactly the same look and feel as in Windows. That's not even a secondary goal.
 
