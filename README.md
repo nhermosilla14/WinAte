@@ -1,4 +1,4 @@
-#PROJECT FINISHED
+PROJECT FINISHED
 
 Since I don't have the time to start working again, and several things have changed in gtk3 and lxde, I won't be giving any further support to any of this. Thanks to all users, I hope to be back soon with something like this ;)
 
